@@ -1,12 +1,20 @@
 <?php
 
-class DatagramClient
+class DatagramClient extends DatagramSocket
 {
-    public function connect($host, $port)
+    public static function factory($host, $port)
     {
         // todo: resolve host via react/dns => promise
         $address = $host . ':' . $port;
         $socket = stream_socket_client('udp://' . $address, $errno, $errstr)
-        return new DatagramSocket($socket, $address);
+        
+        
+        return new DatagramClient($socket, $address);
+    }
+    
+    public function __construct($socket, $address)
+    {
+        parent::__construct($socket, $address);
+        $loop->addReadStream($socket, array('this', 'onReceive'));
     }
 }

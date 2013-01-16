@@ -2,7 +2,7 @@
 
 $loop = React\Loop\Factory::create();
 
-$client = new DatagramClient('localhost', 1234);
+$client = DatagramClient::factory('localhost', 1234);
 
 $client->send('first');
 

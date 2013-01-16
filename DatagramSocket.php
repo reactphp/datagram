@@ -1,7 +1,9 @@
 <?php
 
-class DatagramSocket
+class DatagramSocket extends EventEmitter implements SendInterface
 {
+    public $bufferSize = 1500;
+    
     public function __construct($socket, $address)
     {
         $this->socket = $socket;
@@ -23,8 +25,16 @@ class DatagramSocket
         return trim(substr($this->address, 0, strrpos($this->address, ':'), '[]');
     }
     
-    public function write($data)
+    public function send($data)
     {
         stream_socket_sendto($this->socket, $data, 0, $this->address);
+    }
+    
+    public function onReceive($message)
+    {
+        $data = stream_socket_recvfrom($this->socket, $this->bufferSize, 0, $peer);
+        $remote = new DatagramSocket($this->socket, $peer);
+            
+        $this->emit('message', array($data, $socket);
     }
 }
