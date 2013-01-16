@@ -11,14 +11,13 @@ class DatagramServer extends DatagramSocket
         }
         $address .= $port;
         
-        $this->socket = stream_socket_server("udp://" . $address, $errno, $errstr, STREAM_SERVER_BIND);
+        $socket = stream_socket_server("udp://" . $address, $errno, $errstr, STREAM_SERVER_BIND);
         if (!$socket) {
             die("$errstr ($errno)");
         }
         
-        $size = 1500;
-        $that = $this;
-        $loop->addReadStream($this->socket, array($this, 'onReceive'));
+        parent::__construct($socket, $address);
+        $this->resume();
     }
     
     public function broadcast($message, $port)

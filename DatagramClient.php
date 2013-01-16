@@ -15,6 +15,6 @@ class DatagramClient extends DatagramSocket
     public function __construct($socket, $address)
     {
         parent::__construct($socket, $address);
-        $loop->addReadStream($socket, array('this', 'onReceive'));
+        $this->resume();
     }
 }

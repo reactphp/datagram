@@ -30,6 +30,16 @@ class DatagramSocket extends EventEmitter implements SendInterface
         stream_socket_sendto($this->socket, $data, 0, $this->address);
     }
     
+    public function pause()
+    {
+        $loop->removeReadStream($this->socket);
+    }
+    
+    public function resume()
+    {
+        $loop->addReadStream($this->socket, array($this, 'onReceive'));
+    }
+    
     public function onReceive($message)
     {
         $data = stream_socket_recvfrom($this->socket, $this->bufferSize, 0, $peer);
