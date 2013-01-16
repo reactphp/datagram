@@ -2,9 +2,9 @@
 
 class DatagramSocket
 {
-    public function __construct(DatagramServer $server, $address)
+    public function __construct($socket, $address)
     {
-        $this->server = $server;
+        $this->socket = $socket;
         $this->address = $address;
     }
     
@@ -25,6 +25,6 @@ class DatagramSocket
     
     public function write($data)
     {
-        stream_socket_sendto($this->server->socket, $data, 0, $this->address);
+        stream_socket_sendto($this->socket, $data, 0, $this->address);
     }
 }

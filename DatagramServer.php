@@ -20,7 +20,7 @@ class DatagramServer
         $that = $this;
         $loop->addReadStream($this->socket, function($socket) use ($that, $size) {
             $data = stream_socket_recvfrom($socket, $size, 0, $peer);
-            $socket = new DatagramSocket($that, $peer);
+            $socket = new DatagramSocket($socket, $peer);
             
             $that->emit('message', array($data, $socket);
         });
