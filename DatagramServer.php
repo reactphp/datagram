@@ -2,7 +2,7 @@
 
 class DatagramServer extends DatagramSocket
 {
-    public function __construct(LoopInterface $loop, $port, $host='127.0.0.1')
+    public static function create(LoopInterface $loop, $port, $host)
     {
         $address = self::createAddress($host, $port);
         
@@ -10,8 +10,14 @@ class DatagramServer extends DatagramSocket
         if (!$socket) {
             die("$errstr ($errno)");
         }
-        
-        parent::__construct($socket, $address);
+        return new DatagramServer($loop, $socket, $address);
+    }
+    public function __construct(LoopInterface $loop, $socket, $address = null)
+    {
+        if ($address === null) {
+            $address = stream_socket_get_name($socket, false);
+        }
+        parent::__construct($loop, $socket, $address);
         $this->resume();
     }
     

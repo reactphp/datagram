@@ -4,8 +4,9 @@ class DatagramSocket extends EventEmitter implements SendInterface
 {
     public $bufferSize = 1500;
     
-    public function __construct($socket, $address)
+    public function __construct($loop, $socket, $address)
     {
+        $this->loop = $loop;
         $this->socket = $socket;
         $this->address = $address;
     }
@@ -32,12 +33,12 @@ class DatagramSocket extends EventEmitter implements SendInterface
     
     public function pause()
     {
-        $loop->removeReadStream($this->socket);
+        $this->loop->removeReadStream($this->socket);
     }
     
     public function resume()
     {
-        $loop->addReadStream($this->socket, array($this, 'onReceive'));
+        $this->loop->addReadStream($this->socket, array($this, 'onReceive'));
     }
     
     public function onReceive($message)
