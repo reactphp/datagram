@@ -1,6 +1,6 @@
 <?php
 
-class DatagramServer extends DatagramSocket
+class DatagramServer extends DatagramSocketReadable
 {
     public static function create(LoopInterface $loop, $port, $host)
     {
