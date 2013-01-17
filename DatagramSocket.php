@@ -47,4 +47,14 @@ class DatagramSocket extends EventEmitter implements SendInterface
             
         $this->emit('message', array($data, $socket);
     }
+    
+    protected static function createAddress($host, $ip)
+    {
+        $address = $host;
+        if (strpos($host, ':') !== false) {
+            // enclose IPv6 address in square brackets
+            $address = '[' . $host . ']';
+        }
+        $address .= $port;
+    }
 }
