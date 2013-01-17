@@ -1,17 +1,7 @@
 <?php
 
 class DatagramClient extends DatagramSocketReadable
-{
-    public static function create(LoopInterface $loop, Resolver $resolver, $host, $port)
-    {
-        return $resolver->resolve($host)->then(function ($ip) use ($loop, $port) {
-            $address = self::createAddress($ip, $port);
-            $socket = stream_socket_client('udp://' . $address, $errno, $errstr)
-
-            return new DatagramClient($loop, $socket, $address);
-        });
-    }
-    
+{   
     public function __construct($loop, $socket, $address = null)
     {
         if ($address === null) {
