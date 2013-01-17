@@ -1,8 +1,9 @@
 <?php
 
+// TODO: should not provide a send() method
 class DatagramServer extends DatagramSocketReadable
 {
-    public static function create(LoopInterface $loop, $port, $host)
+    public static function create(LoopInterface $loop, $port, $host = '127.0.0.1')
     {
         $address = self::createAddress($host, $port);
         
@@ -19,12 +20,5 @@ class DatagramServer extends DatagramSocketReadable
         }
         parent::__construct($loop, $socket, $address);
         $this->resume();
-    }
-    
-    public function broadcast($message, $port)
-    {
-        // TODO: no way to set SO_BROADCAST option?
-        $address = '255.255.255.255:' . $port;
-        stream_socket_sendto($this->socket, $message, 0, $address);
     }
 }
