@@ -32,14 +32,4 @@ class DatagramSocket extends EventEmitter
     {
         stream_socket_sendto($this->socket, $data, 0, $this->address);
     }
-    
-    protected static function createAddress($host, $ip)
-    {
-        $address = $host;
-        if (strpos($host, ':') !== false) {
-            // enclose IPv6 address in square brackets
-            $address = '[' . $host . ']';
-        }
-        $address .= $port;
-    }
 }
