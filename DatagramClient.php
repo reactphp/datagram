@@ -2,13 +2,14 @@
 
 class DatagramClient extends DatagramSocket
 {
-    public static function factory($host, $port)
+    public static function create(Resolver $resolver, $host, $port)
     {
-        // todo: resolve host via react/dns => promise
-        $address = self::createAddress($host, $port);
-        $socket = stream_socket_client('udp://' . $address, $errno, $errstr)
-        
-        return new DatagramClient($socket, $address);
+        return $resolver->resolve($host)->then(function ($ip) use ($port) {
+            $address = self::createAddress($ip, $port);
+            $socket = stream_socket_client('udp://' . $address, $errno, $errstr)
+
+            return new DatagramClient($socket, $address);
+        });
     }
     
     public function __construct($socket, $address = null)
