@@ -1,7 +1,11 @@
 <?php
 
-class DatagramSocket extends EventEmitter implements SendInterface
+class DatagramSocket extends EventEmitter
 {
+    protected $loop;
+    protected $socket;
+    protected $address;
+    
     public function __construct($loop, $socket, $address)
     {
         $this->loop = $loop;
