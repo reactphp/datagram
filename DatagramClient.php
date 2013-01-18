@@ -1,7 +1,7 @@
 <?php
 
 class DatagramClient extends DatagramSocketReadable
-{   
+{
     public function __construct($loop, $socket, $address = null)
     {
         if ($address === null) {
