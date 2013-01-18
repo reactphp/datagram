@@ -38,4 +38,11 @@ class SocketReadable extends Socket
 
         $this->emit('message', array($data, $remote));
     }
+
+    public function close()
+    {
+        $this->pause();
+        fclose($this->socket);
+        $this->socket = false;
+    }
 }
