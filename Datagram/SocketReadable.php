@@ -23,9 +23,19 @@ class SocketReadable extends Socket
     {
         $data = stream_socket_recvfrom($this->socket, $this->bufferSize, 0, $peer);
 
-        // create remote socket that does NOT have a dedicated readable method (see thie main DatagramSocket instead)
-        $remote = new DatagramSocket($this->socket, $peer);
+        if ($data === false) {
+            // receiving data failed => remote side rejected one of our packets
+            // due to the nature of UDP, there's no way to tell which one exactly
+            // $peer is not filled either
 
-        $this->emit('message', array($data, $socket));
+            // emit error message and local socket
+            $this->emit('error', array(new \Exception('Invalid message'), $this));
+            return;
+        }
+
+        // create remote socket that does NOT have a dedicated readable method (see thie main DatagramSocket instead)
+        $remote = new Socket($this->loop, $this->socket, $peer);
+
+        $this->emit('message', array($data, $remote));
     }
 }
