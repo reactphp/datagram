@@ -7,7 +7,7 @@ namespace Datagram;
 // TODO: implment EventEmitter only here?
 class SocketReadable extends Socket
 {
-    public $bufferSize = 1500;
+    public $bufferSize = 65536;
 
     public function pause()
     {
