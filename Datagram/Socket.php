@@ -3,6 +3,7 @@
 namespace Datagram;
 
 use React\EventLoop\LoopInterface;
+use Evenement\EventEmitter;
 
 class Socket extends EventEmitter
 {
