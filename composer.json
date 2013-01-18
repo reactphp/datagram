@@ -1,0 +1,11 @@
+{
+    "license": "MIT",
+    "autoload": {
+        "psr-0": {"Datagram": ""}
+    },
+    "require": {
+        "react/event-loop": "0.2.*",
+        "react/dns": "0.2.*",
+        "react/promise": "1.*"
+    }
+}
