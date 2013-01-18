@@ -2,9 +2,9 @@
 
 $loop = React\Loop\Factory::create();
 
-$factory = new DatagramFactory();
+$factory = new Datagram\Factory();
 
-$factory->createServer($loop, 1234)->then(function ($server) {
+$factory->createServer($loop, 1234)->then(function (Datagram\Server $server) {
     $server->on('message', function($data, $client) {
         $client->send('hello '.$client->getAddress().'! echo: '.$message);
 

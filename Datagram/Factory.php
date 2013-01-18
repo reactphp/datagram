@@ -1,6 +1,12 @@
 <?php
 
-class DatagramFactory
+namespace Datagram;
+
+use React\EventLoop\LoopInterface;
+use React\Dns\Resolver\Resolver;
+use React\Promise\When;
+
+class Factory
 {
     public function createClient(LoopInterface $loop, Resolver $resolver, $host, $port)
     {
@@ -9,7 +15,7 @@ class DatagramFactory
             $address = $factory->createAddress($ip, $port);
             $socket = stream_socket_client('udp://' . $address, $errno, $errstr);
 
-            return new DatagramClient($loop, $socket, $address);
+            return new Client($loop, $socket, $address);
         });
     }
 

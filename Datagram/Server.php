@@ -1,7 +1,11 @@
 <?php
 
+namespace Datagram;
+
+use React\EventLoop\LoopInterface;
+
 // TODO: should not provide a send() method
-class DatagramServer extends DatagramSocketReadable
+class Server extends SocketReadable
 {
     public function __construct(LoopInterface $loop, $socket, $address = null)
     {

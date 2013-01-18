@@ -1,8 +1,12 @@
 <?php
 
-class DatagramClient extends DatagramSocketReadable
+namespace Datagram;
+
+use React\EventLoop\LoopInterface;
+
+class Client extends SocketReadable
 {
-    public function __construct($loop, $socket, $address = null)
+    public function __construct(LoopInterface $loop, $socket, $address = null)
     {
         if ($address === null) {
             $address = stream_socket_get_name($socket, true);

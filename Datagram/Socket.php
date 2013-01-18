@@ -1,12 +1,16 @@
 <?php
 
-class DatagramSocket extends EventEmitter
+namespace Datagram;
+
+use React\EventLoop\LoopInterface;
+
+class Socket extends EventEmitter
 {
     protected $loop;
     protected $socket;
     protected $address;
 
-    public function __construct($loop, $socket, $address)
+    public function __construct(LoopInterface $loop, $socket, $address)
     {
         $this->loop = $loop;
         $this->socket = $socket;

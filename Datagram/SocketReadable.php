@@ -1,9 +1,11 @@
 <?php
 
+namespace Datagram;
+
 /** @event message */
 // interface similar to Stream
 // TODO: implment EventEmitter only here?
-class DatagramSocketReadable extends DatagramSocket
+class SocketReadable extends Socket
 {
     public $bufferSize = 1500;
 
