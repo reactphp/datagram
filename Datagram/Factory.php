@@ -14,6 +14,10 @@ class Factory
         return $this->resolve($resolver, $host)->then(function ($ip) use ($loop, $port, $factory) {
             $address = $factory->createAddress($ip, $port);
             $socket = stream_socket_client('udp://' . $address, $errno, $errstr);
+            if (!$socket) {
+                die("$errstr ($errno)");
+            }
+
 
             return new Client($loop, $socket, $address);
         });
@@ -27,14 +31,18 @@ class Factory
         if (!$socket) {
             die("$errstr ($errno)");
         }
-        return When::resolve(new DatagramServer($loop, $socket, $address));
+        return When::resolve(new Server($loop, $socket, $address));
     }
 
     protected function resolve($resolver, $host)
     {
-        // todo: if there's no need to resolve the address:
-        if (false) {
+        // there's no need to resolve if the host is already given as an IP address
+        if (false !== filter_var($host, FILTER_VALIDATE_IP)) {
             return When::resolve($host);
+        }
+        // todo: remove this once the dns resolver can handle the hosts file!
+        if ($host === 'localhost') {
+            return When::resolve('127.0.0.1');
         }
         return $resolver->resolve($host);
     }
@@ -46,7 +54,7 @@ class Factory
             // enclose IPv6 address in square brackets
             $address = '[' . $host . ']';
         }
-        $address .= $port;
+        $address .= ':' . $port;
         return $address;
     }
 }
