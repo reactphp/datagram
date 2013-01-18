@@ -38,4 +38,9 @@ class Socket extends EventEmitter
     {
         stream_socket_sendto($this->socket, $data, 0, $this->address);
     }
+
+    public function __toString()
+    {
+        return $this->address . ' (' . $this->socket . ')';
+    }
 }
