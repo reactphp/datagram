@@ -8,10 +8,20 @@ use React\Promise\When;
 
 class Factory
 {
-    public function createClient(LoopInterface $loop, Resolver $resolver, $host, $port)
+    protected $loop;
+    protected $resolver;
+
+    public function __construct(LoopInterface $loop, Resolver $resolver = null)
+    {
+        $this->loop = $loop;
+        $this->resolver = $resolver;
+    }
+
+    public function createClient($host, $port)
     {
         $factory = $this;
-        return $this->resolve($resolver, $host)->then(function ($ip) use ($loop, $port, $factory) {
+        $loop = $this->loop;
+        return $this->resolve($host)->then(function ($ip) use ($loop, $port, $factory) {
             $address = $factory->createAddress($ip, $port);
             $socket = stream_socket_client('udp://' . $address, $errno, $errstr);
             if (!$socket) {
@@ -23,7 +33,7 @@ class Factory
         });
     }
 
-    public function createServer(LoopInterface $loop, $port, $host = '127.0.0.1')
+    public function createServer($port, $host = '127.0.0.1')
     {
         $address = $this->createAddress($host, $port);
 
@@ -31,10 +41,10 @@ class Factory
         if (!$socket) {
             die("$errstr ($errno)");
         }
-        return When::resolve(new Server($loop, $socket, $address));
+        return When::resolve(new Server($this->loop, $socket, $address));
     }
 
-    protected function resolve($resolver, $host)
+    protected function resolve($host)
     {
         // there's no need to resolve if the host is already given as an IP address
         if (false !== filter_var($host, FILTER_VALIDATE_IP)) {
@@ -44,7 +54,11 @@ class Factory
         if ($host === 'localhost') {
             return When::resolve('127.0.0.1');
         }
-        return $resolver->resolve($host);
+
+        if ($resolver === null) {
+            return When::reject(\Exception('No resolver given in order to get IP address for given hostname'));
+        }
+        return $this->resolver->resolve($host);
     }
 
     public function createAddress($host, $port)
