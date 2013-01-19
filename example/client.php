@@ -7,9 +7,9 @@ $loop = React\EventLoop\Factory::create();
 $factory = new React\Dns\Resolver\Factory();
 $resolver = $factory->createCached('8.8.8.8', $loop);
 
-$factory = new Datagram\Factory();
+$factory = new Datagram\Factory($loop, $resolver);
 
-$factory->createClient($loop, $resolver, 'localhost', 1234)->then(function (Datagram\Client $client) use ($loop) {
+$factory->createClient('localhost', 1234)->then(function (Datagram\Client $client) use ($loop) {
     $client->send('first');
 
     $client->on('message', function($message, $server) {
