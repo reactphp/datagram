@@ -5,6 +5,7 @@ namespace Datagram;
 use React\EventLoop\LoopInterface;
 use React\Dns\Resolver\Resolver;
 use React\Promise\When;
+use \Exception;
 
 class Factory
 {
@@ -25,9 +26,8 @@ class Factory
             $address = $factory->createAddress($ip, $port);
             $socket = stream_socket_client('udp://' . $address, $errno, $errstr);
             if (!$socket) {
-                die("$errstr ($errno)");
+                throw new Exception('Unable to create client socket: ' . $errstr, $errno);
             }
-
 
             return new Client($loop, $socket, $address);
         });
@@ -39,8 +39,9 @@ class Factory
 
         $socket = stream_socket_server("udp://" . $address, $errno, $errstr, STREAM_SERVER_BIND);
         if (!$socket) {
-            die("$errstr ($errno)");
+            return When::reject(new Exception('Unable to create server socket: ' . $errstr, $errno));
         }
+
         return When::resolve(new Server($this->loop, $socket, $address));
     }
 
@@ -55,7 +56,7 @@ class Factory
             return When::resolve('127.0.0.1');
         }
 
-        if ($resolver === null) {
+        if ($this->resolver === null) {
             return When::reject(\Exception('No resolver given in order to get IP address for given hostname'));
         }
         return $this->resolver->resolve($host);
@@ -63,12 +64,10 @@ class Factory
 
     public function createAddress($host, $port)
     {
-        $address = $host;
         if (strpos($host, ':') !== false) {
             // enclose IPv6 address in square brackets
-            $address = '[' . $host . ']';
+            $host = '[' . $host . ']';
         }
-        $address .= ':' . $port;
-        return $address;
+        return $host . ':' . $port;
     }
 }
