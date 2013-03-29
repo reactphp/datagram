@@ -26,6 +26,11 @@ $factory->createClient('localhost', 1234)->then(function (Datagram\Client $clien
     $loop->addPeriodicTimer(2.0, function() use ($client, &$n) {
         $client->send('tick' . ++$n);
     });
+
+    // read input from STDIN and forward everything to server
+    $loop->addReadStream(STDIN, function () use ($client) {
+        $client->send(trim(fgets(STDIN, 2000)));
+    });
 }, function($error) {
     echo 'ERROR: ' . $error->getMessage() . PHP_EOL;
 });
