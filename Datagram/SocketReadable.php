@@ -34,7 +34,7 @@ class SocketReadable extends Socket
         }
 
         // create remote socket that does NOT have a dedicated readable method (see thie main DatagramSocket instead)
-        $remote = new Socket($this->loop, $this->socket, $peer);
+        $remote = new Socket($this->loop, $this->socket, $this->sanitizeAddress($peer));
 
         $this->emit('message', array($data, $remote));
     }
@@ -44,5 +44,21 @@ class SocketReadable extends Socket
         $this->pause();
         fclose($this->socket);
         $this->socket = false;
+    }
+
+    private function sanitizeAddress($address)
+    {
+        // doc comment suggests IPv6 address is not enclosed in square brackets?
+
+        $pos = strrpos(':', $address);
+        // this is an IPv6 address which includes colons but no square brackets
+        if ($pos !== false && substr($address, 0, 1) !== '[') {
+            if (strpos(':', $address) < $pos) {
+                $port = substr($address, $pos + 1);
+                $address = '[' . substr($address, 0, $pos) . ']:' . $port;
+            }
+
+        }
+        return $address;
     }
 }

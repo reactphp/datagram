@@ -20,7 +20,6 @@ class Socket extends EventEmitter
 
     public function getAddress()
     {
-        // TODO: doc comment suggests IPv6 address is not enclosed in square brackets?
         return $this->address;
     }
 
