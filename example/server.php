@@ -10,7 +10,7 @@ $factory->createServer(1234)->then(function (Datagram\Server $server) {
     $server->on('message', function($message, $client) {
         $client->send('hello '.$client->getAddress().'! echo: '.$message);
 
-        // $server->send() is not available here
+        echo 'client ' . $client->getAddress() . ': ' . $message . PHP_EOL;
     });
 });
 
