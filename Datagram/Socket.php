@@ -78,7 +78,9 @@ class Socket extends EventEmitter implements SocketInterface
 
     public function close()
     {
+        $this->emit('close', array($this));
         $this->pause();
+
         fclose($this->socket);
         $this->socket = false;
     }
