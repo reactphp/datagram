@@ -33,10 +33,7 @@ class SocketReadable extends Socket
             return;
         }
 
-        // create remote socket that does NOT have a dedicated readable method (see thie main DatagramSocket instead)
-        $remote = new Socket($this->loop, $this->socket, $this->sanitizeAddress($peer));
-
-        $this->emit('message', array($data, $remote));
+        $this->emit('message', array($data, $this->sanitizeAddress($peer)));
     }
 
     public function close()
