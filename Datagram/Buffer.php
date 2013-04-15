@@ -19,6 +19,10 @@ class Buffer
 
     public function send($data, $remoteAddress = null)
     {
+        if ($this->socket === false) {
+            return;
+        }
+
         $this->outgoing []= array($data, $remoteAddress);
 
         if (!$this->listening) {
@@ -41,5 +45,20 @@ class Buffer
             $this->loop->removeWriteStream($this->socket);
             $this->listening = false;
         }
+    }
+
+    public function close()
+    {
+        if ($this->socket === false) {
+            return false;
+        }
+
+        if ($this->listening) {
+            $this->loop->removeWriteStream($this->socket);
+            $this->listening = false;
+        }
+
+        $this->socket = false;
+        $this->outgoing = array();
     }
 }
