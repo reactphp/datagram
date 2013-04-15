@@ -11,32 +11,32 @@ class Socket extends EventEmitter
 {
     protected $loop;
     protected $socket;
-    protected $address;
 
     public $bufferSize = 65536;
 
-    public function __construct(LoopInterface $loop, $socket, $address)
+    public function __construct(LoopInterface $loop, $socket)
     {
         $this->loop = $loop;
         $this->socket = $socket;
-        $this->address = $address;
 
         $this->resume();
     }
 
     public function getAddress()
     {
-        return $this->address;
+        return stream_socket_get_name($this->socket, false);
     }
 
     public function getPort()
     {
-        return (int)substr($this->address, strrpos($this->address, ':') + 1);
+        $address = $this->getAddress();
+        return (int)substr($address, strrpos($address, ':') + 1);
     }
 
     public function getHost()
     {
-        return trim(substr($this->address, 0, strrpos($this->address, ':')), '[]');
+        $address = $this->getAddress();
+        return trim(substr($address, 0, strrpos($address, ':')), '[]');
     }
 
     public function send($data, $target = null)
@@ -101,6 +101,6 @@ class Socket extends EventEmitter
 
     public function __toString()
     {
-        return $this->address . ' (' . $this->socket . ')';
+        return $this->getAddress() . ' (' . $this->socket . ')';
     }
 }
