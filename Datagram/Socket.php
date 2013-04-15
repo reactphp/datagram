@@ -5,8 +5,6 @@ namespace Datagram;
 use React\EventLoop\LoopInterface;
 use Evenement\EventEmitter;
 
-/** @event message */
-// interface similar to Stream
 class Socket extends EventEmitter implements SocketInterface
 {
     protected $loop;
