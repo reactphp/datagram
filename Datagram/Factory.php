@@ -30,7 +30,7 @@ class Factory
                 throw new Exception('Unable to create client socket: ' . $errstr, $errno);
             }
 
-            return new Socket($loop, $socket, $address);
+            return new Socket($loop, $socket);
         });
     }
 
@@ -43,7 +43,7 @@ class Factory
             return When::reject(new Exception('Unable to create server socket: ' . $errstr, $errno));
         }
 
-        return When::resolve(new Socket($this->loop, $socket, $address));
+        return When::resolve(new Socket($this->loop, $socket));
     }
 
     protected function resolve($host)
