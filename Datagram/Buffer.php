@@ -3,6 +3,7 @@
 namespace Datagram;
 
 use React\EventLoop\LoopInterface;
+use \Exception;
 
 class Buffer
 {
@@ -36,9 +37,16 @@ class Buffer
         list($data, $remoteAddress) = array_shift($this->outgoing);
 
         if ($remoteAddress === null) {
-            fwrite($this->socket, $data);
+            // do not use fwrite() as it obeys the stream buffer size and
+            // packets are not to be split at 8kb
+            $ret = @stream_socket_sendto($this->socket, $data);
         } else {
-            stream_socket_sendto($this->socket, $data, 0, $remoteAddress);
+            $ret = @stream_socket_sendto($this->socket, $data, 0, $remoteAddress);
+        }
+
+        if ($ret < 0) {
+            $error = error_get_last();
+            throw new Exception('Unable to send packet: ' . $error['message']);
         }
 
         if (!$this->outgoing) {
