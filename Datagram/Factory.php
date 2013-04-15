@@ -5,6 +5,7 @@ namespace Datagram;
 use React\EventLoop\LoopInterface;
 use React\Dns\Resolver\Resolver;
 use React\Promise\When;
+use Datagram\Socket;
 use \Exception;
 
 class Factory
@@ -29,7 +30,7 @@ class Factory
                 throw new Exception('Unable to create client socket: ' . $errstr, $errno);
             }
 
-            return new Client($loop, $socket, $address);
+            return new Socket($loop, $socket, $address);
         });
     }
 
@@ -42,7 +43,7 @@ class Factory
             return When::reject(new Exception('Unable to create server socket: ' . $errstr, $errno));
         }
 
-        return When::resolve(new Server($this->loop, $socket, $address));
+        return When::resolve(new Socket($this->loop, $socket, $address));
     }
 
     protected function resolve($host)
