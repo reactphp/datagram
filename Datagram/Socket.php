@@ -26,7 +26,9 @@ class Socket extends EventEmitter implements SocketInterface
 
     public function getAddress()
     {
-        return stream_socket_get_name($this->socket, false);
+        if ($this->socket !== false) {
+            return stream_socket_get_name($this->socket, false);
+        }
     }
 
     public function getPort()
@@ -54,7 +56,9 @@ class Socket extends EventEmitter implements SocketInterface
 
     public function resume()
     {
-        $this->loop->addReadStream($this->socket, array($this, 'onReceive'));
+        if ($this->socket !== false) {
+            $this->loop->addReadStream($this->socket, array($this, 'onReceive'));
+        }
     }
 
     public function onReceive($message)
@@ -76,13 +80,18 @@ class Socket extends EventEmitter implements SocketInterface
 
     public function close()
     {
+        if ($this->socket === false)  {
+            return;
+        }
+
         $this->emit('close', array($this));
         $this->pause();
-        $this->buffer->close();
-        $this->removeAllListeners();
 
-        fclose($this->socket);
         $this->socket = false;
+        $this->buffer->close();
+        fclose($this->socket);
+
+        $this->removeAllListeners();
     }
 
     private function sanitizeAddress($address)
