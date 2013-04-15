@@ -5,8 +5,8 @@ namespace Datagram;
 use Evenement\EventEmitterInterface;
 
 /**
- * @event message($data, $remoteAddress)
- * @event error($exception)
+ * @event message($data, $remoteAddress, $thisSocket)
+ * @event error($exception, $thisSocket)
  */
 interface SocketInterface extends EventEmitterInterface
 {

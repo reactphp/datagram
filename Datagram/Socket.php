@@ -73,7 +73,7 @@ class Socket extends EventEmitter implements SocketInterface
             return;
         }
 
-        $this->emit('message', array($data, $this->sanitizeAddress($peer)));
+        $this->emit('message', array($data, $this->sanitizeAddress($peer), $this));
     }
 
     public function close()
