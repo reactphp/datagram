@@ -33,9 +33,12 @@ class Socket extends EventEmitter
         return trim(substr($this->address, 0, strrpos($this->address, ':')), '[]');
     }
 
-    public function send($data)
+    public function send($data, $target = null)
     {
-        stream_socket_sendto($this->socket, $data, 0, $this->address);
+        if ($target === null) {
+            $target = $this->address;
+        }
+        stream_socket_sendto($this->socket, $data, 0, $target);
     }
 
     public function __toString()
