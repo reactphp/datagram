@@ -7,7 +7,7 @@ use Evenement\EventEmitter;
 
 /** @event message */
 // interface similar to Stream
-class Socket extends EventEmitter
+class Socket extends EventEmitter implements SocketInterface
 {
     protected $loop;
     protected $socket;
