@@ -42,9 +42,10 @@ class Socket extends EventEmitter
     public function send($data, $target = null)
     {
         if ($target === null) {
-            $target = $this->address;
+            fwrite($this->socket, $data);
+        } else {
+            stream_socket_sendto($this->socket, $data, 0, $target);
         }
-        stream_socket_sendto($this->socket, $data, 0, $target);
     }
 
 
