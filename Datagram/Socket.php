@@ -20,6 +20,8 @@ class Socket extends EventEmitter
         $this->loop = $loop;
         $this->socket = $socket;
         $this->address = $address;
+
+        $this->resume();
     }
 
     public function getAddress()
