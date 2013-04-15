@@ -10,12 +10,16 @@ class Socket extends EventEmitter implements SocketInterface
     protected $loop;
     protected $socket;
 
+    protected $buffer;
+
     public $bufferSize = 65536;
 
     public function __construct(LoopInterface $loop, $socket)
     {
         $this->loop = $loop;
         $this->socket = $socket;
+
+        $this->buffer = new Buffer($loop, $socket);
 
         $this->resume();
     }
@@ -37,13 +41,9 @@ class Socket extends EventEmitter implements SocketInterface
         return trim(substr($address, 0, strrpos($address, ':')), '[]');
     }
 
-    public function send($data, $target = null)
+    public function send($data, $remoteAddress = null)
     {
-        if ($target === null) {
-            fwrite($this->socket, $data);
-        } else {
-            stream_socket_sendto($this->socket, $data, 0, $target);
-        }
+        $this->buffer->send($data, $remoteAddress);
     }
 
 
