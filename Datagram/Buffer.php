@@ -2,10 +2,11 @@
 
 namespace Datagram;
 
+use Evenement\EventEmitter;
 use React\EventLoop\LoopInterface;
 use \Exception;
 
-class Buffer
+class Buffer extends EventEmitter
 {
     private $loop;
     private $socket;
@@ -46,7 +47,7 @@ class Buffer
 
         if ($ret < 0) {
             $error = error_get_last();
-            throw new Exception('Unable to send packet: ' . $error['message']);
+            $this->emit('error', array(new Exception('Unable to send packet: ' . $error['message'])));
         }
 
         if (!$this->outgoing) {
@@ -61,6 +62,8 @@ class Buffer
             return false;
         }
 
+        $this->emit('close', array($this));
+
         if ($this->listening) {
             $this->loop->removeWriteStream($this->socket);
             $this->listening = false;
@@ -68,5 +71,6 @@ class Buffer
 
         $this->socket = false;
         $this->outgoing = array();
+        $this->removeAllListeners();
     }
 }
