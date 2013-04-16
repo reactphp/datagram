@@ -23,6 +23,7 @@ class Factory
     {
         $factory = $this;
         $loop = $this->loop;
+
         return $this->resolve($host)->then(function ($ip) use ($loop, $port, $factory) {
             $address = $factory->createAddress($ip, $port);
             $socket = stream_socket_client('udp://' . $address, $errno, $errstr);
@@ -36,14 +37,19 @@ class Factory
 
     public function createServer($port, $host = '127.0.0.1')
     {
-        $address = $this->createAddress($host, $port);
+        $factory = $this;
+        $loop = $this->loop;
 
-        $socket = stream_socket_server("udp://" . $address, $errno, $errstr, STREAM_SERVER_BIND);
-        if (!$socket) {
-            return When::reject(new Exception('Unable to create server socket: ' . $errstr, $errno));
-        }
+        return $this->resolve($host)->then(function ($ip) use ($loop, $port, $factory) {
+            $address = $factory->createAddress($ip, $port);
 
-        return When::resolve(new Socket($this->loop, $socket));
+            $socket = stream_socket_server("udp://" . $address, $errno, $errstr, STREAM_SERVER_BIND);
+            if (!$socket) {
+                throw new Exception('Unable to create server socket: ' . $errstr, $errno);
+            }
+
+            return new Socket($loop, $socket);
+        });
     }
 
     protected function resolve($host)
