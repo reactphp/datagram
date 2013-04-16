@@ -1,4 +1,8 @@
 {
+    "name": "clue/datagram",
+    "homepage": "https://github.com/clue/datagram",
+    "description": "UDP datagram socket client and server for reactphp",
+    "keywords": ["udp", "datagram", "dgram", "socket", "client", "server", "react", "async"],
     "license": "MIT",
     "autoload": {
         "psr-0": {"Datagram": ""}
