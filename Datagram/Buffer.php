@@ -47,7 +47,8 @@ class Buffer extends EventEmitter
 
         if ($ret < 0) {
             $error = error_get_last();
-            $this->emit('error', array(new Exception('Unable to send packet: ' . $error['message'])));
+            $message = 'Unable to send packet: ' . trim($error['message']);
+            $this->emit('error', array(new Exception($message)));
         }
 
         if (!$this->outgoing) {
