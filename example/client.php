@@ -12,14 +12,12 @@ $factory = new Datagram\Factory($loop, $resolver);
 $factory->createClient('localhost', 1234)->then(function (Datagram\Socket $client) use ($loop) {
     $client->send('first');
 
-    $client->on('message', function($message, $server) {
-        //$remote->send() is same as $client->send()
-
-        echo 'received "' . $message . '" from ' . $server. PHP_EOL;
+    $client->on('message', function($message, $serverAddress, $client) {
+        echo 'received "' . $message . '" from ' . $serverAddress. PHP_EOL;
     });
 
-    $client->on('error', function($error, $server) {
-        echo 'error from ' . $server . PHP_EOL;
+    $client->on('error', function($error, $client) {
+        echo 'error: ' . $error->getMessage() . PHP_EOL;
     });
 
     $n = 0;
