@@ -29,20 +29,20 @@ class Socket extends EventEmitter implements SocketInterface
         $this->resume();
     }
 
-    public function getAddress()
+    public function getLocalAddress()
     {
         if ($this->socket !== false) {
             return stream_socket_get_name($this->socket, false);
         }
     }
 
-    public function getPort()
+    public function getLocalPort()
     {
         $address = $this->getAddress();
         return (int)substr($address, strrpos($address, ':') + 1);
     }
 
-    public function getHost()
+    public function getLocalHost()
     {
         $address = $this->getAddress();
         return trim(substr($address, 0, strrpos($address, ':')), '[]');
