@@ -74,4 +74,9 @@ class Buffer extends EventEmitter
         $this->outgoing = array();
         $this->removeAllListeners();
     }
+
+    public function end()
+    {
+
+    }
 }
