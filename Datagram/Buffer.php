@@ -12,6 +12,7 @@ class Buffer extends EventEmitter
     private $socket;
     private $listening = false;
     private $outgoing = array();
+    private $writable = true;
 
     public function __construct(LoopInterface $loop, $socket)
     {
@@ -21,7 +22,7 @@ class Buffer extends EventEmitter
 
     public function send($data, $remoteAddress = null)
     {
-        if ($this->socket === false) {
+        if ($this->writable === false) {
             return;
         }
 
@@ -70,6 +71,7 @@ class Buffer extends EventEmitter
             $this->listening = false;
         }
 
+        $this->writable = false;
         $this->socket = false;
         $this->outgoing = array();
         $this->removeAllListeners();
@@ -77,6 +79,14 @@ class Buffer extends EventEmitter
 
     public function end()
     {
+        if ($this->writable === false) {
+            return;
+        }
 
+        $this->writable = false;
+
+        if (!$this->listening) {
+            $this->close();
+        }
     }
 }

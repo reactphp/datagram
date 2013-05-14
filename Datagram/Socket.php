@@ -11,7 +11,6 @@ class Socket extends EventEmitter implements SocketInterface
     protected $socket;
 
     protected $buffer;
-    protected $writable = true;
 
     public $bufferSize = 65536;
 
@@ -94,7 +93,6 @@ class Socket extends EventEmitter implements SocketInterface
         $this->pause();
 
         fclose($this->socket);
-        $this->writable = false;
         $this->socket = false;
         $this->buffer->close();
 
@@ -103,18 +101,6 @@ class Socket extends EventEmitter implements SocketInterface
 
     public function end()
     {
-        if (!$this->writable) {
-            return;
-        }
-
-        $this->writable = false;
-
-        $that = $this;
-
-        $this->buffer->on('close', function () use ($that) {
-            $that->close();
-        });
-
         $this->buffer->end();
     }
 
