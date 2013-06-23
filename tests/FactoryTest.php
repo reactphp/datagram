@@ -29,7 +29,7 @@ class FactoryTest extends PHPUnit_Framework_TestCase
             $loop->run();
         }
 
-        $this->assertInstanceOf('Datagram\Client', $capturedClient);
+        $this->assertInstanceOf('Datagram\Socket', $capturedClient);
 
         $capturedClient->close();
     }
