@@ -4,7 +4,7 @@ This file is a manually maintained list of changes for each release. Feel free
 to add your changes here when sending pull requests. Also send corrections if
 you spot any mistakes.
 
-## 0.3.0 (2013-XX-XX)
+## 0.3.0 (2013-06-23)
 
 * Feature: Add `Datagram\Socket::end()` method which closes the socket as soon
 as the remaining outgoing buffer has been sent.
