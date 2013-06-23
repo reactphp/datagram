@@ -10,36 +10,47 @@ class FactoryTest extends PHPUnit_Framework_TestCase
 {
     private $factory;
 
-    public function testClientSuccess()
+    public function setUp()
     {
-        $loop = React\EventLoop\Factory::create();
-        $factory = new Datagram\Factory($loop, $this->createResolverMock());
+        $this->loop = React\EventLoop\Factory::create();
+        $this->factory = new Datagram\Factory($this->loop, $this->createResolverMock());
+    }
 
-        $promise = $factory->createClient('127.0.0.1', 12345);
-        $this->assertInstanceOf('React\Promise\PromiseInterface', $promise);
+    public function testCreateClient()
+    {
+        $promise = $this->factory->createClient('127.0.0.1', 12345);
 
-        $capturedClient = null;
-        $promise->then(function ($client) use (&$capturedClient, $loop) {
-            $capturedClient = $client;
-            $loop->stop();
-        }, $this->expectCallableNever());
-
-        // future-turn resolutions are not enforced, so the client MAY be known here already
-        if ($capturedClient === null) {
-            $loop->run();
-        }
-
+        $capturedClient = $this->getValueFromResolvedPromise($promise);
         $this->assertInstanceOf('Datagram\Socket', $capturedClient);
 
         $capturedClient->close();
+    }
+
+    protected function getValueFromResolvedPromise($promise)
+    {
+        $this->assertInstanceOf('React\Promise\PromiseInterface', $promise);
+
+        $loop = $this->loop;
+        $capturedValue = null;
+        $promise->then(function ($value) use (&$capturedValue, $loop) {
+            $capturedValue = $value;
+            $loop->stop();
+        }, $this->expectCallableNever());
+
+        // future-turn resolutions are not enforced, so the value MAY be known here already
+        if ($capturedValue === null) {
+            $loop->run();
+        }
+
+        return $capturedValue;
     }
 
     protected function expectCallableOnce()
     {
         $mock = $this->createCallableMock();
         $mock
-        ->expects($this->once())
-        ->method('__invoke');
+            ->expects($this->once())
+            ->method('__invoke');
 
         return $mock;
     }
@@ -48,8 +59,8 @@ class FactoryTest extends PHPUnit_Framework_TestCase
     {
         $mock = $this->createCallableMock();
         $mock
-        ->expects($this->never())
-        ->method('__invoke');
+            ->expects($this->never())
+            ->method('__invoke');
 
         return $mock;
     }
