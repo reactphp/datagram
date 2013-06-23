@@ -1,4 +1,4 @@
-# clue/datagram [![Build Status](https://travis-ci.org/clue/datagram.png?branch=add-end)](https://travis-ci.org/clue/datagram)
+# clue/datagram [![Build Status](https://travis-ci.org/clue/datagram.png?branch=master)](https://travis-ci.org/clue/datagram)
 
 UDP datagram socket client and server for reactphp
 
