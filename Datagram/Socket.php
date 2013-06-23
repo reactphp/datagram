@@ -99,6 +99,11 @@ class Socket extends EventEmitter implements SocketInterface
         $this->removeAllListeners();
     }
 
+    public function end()
+    {
+        $this->buffer->end();
+    }
+
     private function sanitizeAddress($address)
     {
         // doc comment suggests IPv6 address is not enclosed in square brackets?

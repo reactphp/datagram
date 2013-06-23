@@ -17,6 +17,8 @@ interface SocketInterface extends EventEmitterInterface
 
     public function close();
 
+    public function end();
+
     public function resume();
 
     public function pause();

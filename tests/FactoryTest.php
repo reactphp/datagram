@@ -1,14 +1,10 @@
 <?php
 
 use Datagram\Socket;
-
 use React\Promise\When;
-
 use React\Promise\PromiseInterface;
 
-require __DIR__.'/../vendor/autoload.php';
-
-class FactoryTest extends PHPUnit_Framework_TestCase
+class FactoryTest extends TestCase
 {
     private $factory;
 
@@ -56,56 +52,5 @@ class FactoryTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Datagram\Socket', $capturedServer);
 
         $capturedServer->close();
-    }
-
-    protected function getValueFromResolvedPromise($promise)
-    {
-        $this->assertInstanceOf('React\Promise\PromiseInterface', $promise);
-
-        $loop = $this->loop;
-        $capturedValue = null;
-        $promise->then(function ($value) use (&$capturedValue, $loop) {
-            $capturedValue = $value;
-            $loop->stop();
-        }, $this->expectCallableNever());
-
-        // future-turn resolutions are not enforced, so the value MAY be known here already
-        if ($capturedValue === null) {
-            $loop->run();
-        }
-
-        return $capturedValue;
-    }
-
-    protected function expectCallableOnce()
-    {
-        $mock = $this->createCallableMock();
-        $mock
-            ->expects($this->once())
-            ->method('__invoke');
-
-        return $mock;
-    }
-
-    protected function expectCallableNever()
-    {
-        $mock = $this->createCallableMock();
-        $mock
-            ->expects($this->never())
-            ->method('__invoke');
-
-        return $mock;
-    }
-
-    protected function createCallableMock()
-    {
-        return $this->getMock('React\Tests\Socket\Stub\CallableStub');
-    }
-
-    private function createResolverMock()
-    {
-        return $this->getMockBuilder('React\Dns\Resolver\Resolver')
-        ->disableOriginalConstructor()
-        ->getMock();
     }
 }
