@@ -55,6 +55,10 @@ class Buffer extends EventEmitter
         if (!$this->outgoing) {
             $this->loop->removeWriteStream($this->socket);
             $this->listening = false;
+
+            if (!$this->writable) {
+                $this->close();
+            }
         }
     }
 
