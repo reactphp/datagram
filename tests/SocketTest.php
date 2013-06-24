@@ -60,6 +60,19 @@ class SocketTest extends TestCase
     {
         $client->end();
         $this->loop->run();
+
+        return $client;
+    }
+
+    /**
+     *
+     * @param Socket $client
+     * @depends testClientEndAgainWillNotBlock
+     */
+    public function testClientSendAfterEndIsNoop(Socket $client)
+    {
+        $client->send('does not matter');
+        $this->loop->run();
     }
 
     public function testCreatePair()
