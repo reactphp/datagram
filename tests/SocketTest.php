@@ -75,6 +75,18 @@ class SocketTest extends TestCase
         $this->loop->run();
     }
 
+    public function testClientSendHugeWillFail()
+    {
+        $promise = $this->factory->createClient('127.0.0.1', 12345);
+        $client = $this->getValueFromResolvedPromise($promise);
+
+        $client->send(str_repeat(1, 1024 * 1024));
+        $client->on('error', $this->expectCallableOnce());
+        $client->end();
+
+        $this->loop->run();
+    }
+
     public function testCreatePair()
     {
         $promise = $this->factory->createServer(0, '127.0.0.1');
