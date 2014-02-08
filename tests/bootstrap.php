@@ -48,7 +48,7 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
 
     protected function createCallableMock()
     {
-        return $this->getMock('React\Tests\Socket\Stub\CallableStub');
+        return $this->getMock('CallableStub');
     }
 
     protected function createResolverMock()
@@ -56,5 +56,12 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
         return $this->getMockBuilder('React\Dns\Resolver\Resolver')
             ->disableOriginalConstructor()
             ->getMock();
+    }
+}
+
+class CallableStub
+{
+    public function __invoke()
+    {
     }
 }
