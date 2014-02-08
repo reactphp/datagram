@@ -119,9 +119,4 @@ class Socket extends EventEmitter implements SocketInterface
         }
         return $address;
     }
-
-    public function __toString()
-    {
-        return $this->getAddress() . ' (' . $this->socket . ')';
-    }
 }
