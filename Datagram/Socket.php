@@ -53,7 +53,6 @@ class Socket extends EventEmitter implements SocketInterface
         $this->buffer->send($data, $remoteAddress);
     }
 
-
     public function pause()
     {
         $this->loop->removeReadStream($this->socket);
@@ -85,7 +84,7 @@ class Socket extends EventEmitter implements SocketInterface
 
     public function close()
     {
-        if ($this->socket === false)  {
+        if ($this->socket === false) {
             return;
         }
 
@@ -118,10 +117,5 @@ class Socket extends EventEmitter implements SocketInterface
 
         }
         return $address;
-    }
-
-    public function __toString()
-    {
-        return $this->getAddress() . ' (' . $this->socket . ')';
     }
 }

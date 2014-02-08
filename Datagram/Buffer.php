@@ -65,7 +65,7 @@ class Buffer extends EventEmitter
     public function close()
     {
         if ($this->socket === false) {
-            return false;
+            return;
         }
 
         $this->emit('close', array($this));
