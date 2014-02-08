@@ -65,21 +65,18 @@ class Socket extends EventEmitter implements SocketInterface
         }
     }
 
-    public function onReceive($message)
+    public function onReceive()
     {
-        $data = stream_socket_recvfrom($this->socket, $this->bufferSize, 0, $peer);
-
-        if ($data === false) {
-            // receiving data failed => remote side rejected one of our packets
-            // due to the nature of UDP, there's no way to tell which one exactly
-            // $peer is not filled either
-
+        try {
+            $data = $this->handleReceive($peer);
+        }
+        catch (Exception $e) {
             // emit error message and local socket
-            $this->emit('error', array(new \Exception('Invalid message'), $this));
+            $this->emit('error', array($e, $this));
             return;
         }
 
-        $this->emit('message', array($data, $this->sanitizeAddress($peer), $this));
+        $this->emit('message', array($data, $peer, $this));
     }
 
     public function close()
@@ -91,7 +88,7 @@ class Socket extends EventEmitter implements SocketInterface
         $this->emit('close', array($this));
         $this->pause();
 
-        fclose($this->socket);
+        $this->handleClose();
         $this->socket = false;
         $this->buffer->close();
 
@@ -117,5 +114,27 @@ class Socket extends EventEmitter implements SocketInterface
 
         }
         return $address;
+    }
+
+    protected function handleReceive(&$peerAddress)
+    {
+        $data = stream_socket_recvfrom($this->socket, $this->bufferSize, 0, $peerAddress);
+
+        if ($data === false) {
+            // receiving data failed => remote side rejected one of our packets
+            // due to the nature of UDP, there's no way to tell which one exactly
+            // $peer is not filled either
+
+            throw new \Exception('Invalid message');
+        }
+
+        $peerAddress = $this->sanitizeAddress($peerAddress);
+
+        return $data;
+    }
+
+    protected function handleClose()
+    {
+        fclose($this->socket);
     }
 }
