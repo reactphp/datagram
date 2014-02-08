@@ -48,6 +48,13 @@ class Socket extends EventEmitter implements SocketInterface
         return trim(substr($address, 0, strrpos($address, ':')), '[]');
     }
 
+    public function getRemoteAddress()
+    {
+        if ($this->socket !== false) {
+            return stream_socket_get_name($this->socket, true);
+        }
+    }
+
     public function send($data, $remoteAddress = null)
     {
         $this->buffer->send($data, $remoteAddress);
