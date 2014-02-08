@@ -14,12 +14,16 @@ class Socket extends EventEmitter implements SocketInterface
 
     public $bufferSize = 65536;
 
-    public function __construct(LoopInterface $loop, $socket)
+    public function __construct(LoopInterface $loop, $socket, Buffer $buffer = null)
     {
         $this->loop = $loop;
         $this->socket = $socket;
 
-        $this->buffer = new Buffer($loop, $socket);
+        if ($buffer === null) {
+            $buffer = new Buffer($loop, $socket);
+        }
+        $this->buffer = $buffer;
+
         $that = $this;
         $this->buffer->on('error', function ($error) use ($that) {
             $that->emit('error', array($error, $that));
