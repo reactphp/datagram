@@ -12,7 +12,7 @@ $loop = React\EventLoop\Factory::create();
 
 $factory = new Datagram\Factory($loop);
 
-$factory->createClient('localhost', 1234)->then(function (Datagram\Socket $client) use ($loop) {
+$factory->createClient('localhost:1234')->then(function (Datagram\Socket $client) {
     $client->send('first');
 
     $client->on('message', function($message, $serverAddress, $client) {

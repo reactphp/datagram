@@ -16,7 +16,7 @@ class FactoryTest extends TestCase
 
     public function testCreateClient()
     {
-        $promise = $this->factory->createClient('127.0.0.1', 12345);
+        $promise = $this->factory->createClient('127.0.0.1:12345');
 
         $capturedClient = $this->getValueFromResolvedPromise($promise);
         $this->assertInstanceOf('Datagram\Socket', $capturedClient);
@@ -26,7 +26,7 @@ class FactoryTest extends TestCase
 
     public function testCreateClientLocalhost()
     {
-        $promise = $this->factory->createClient('localhost', 12345);
+        $promise = $this->factory->createClient('localhost:12345');
 
         $capturedClient = $this->getValueFromResolvedPromise($promise);
         $this->assertInstanceOf('Datagram\Socket', $capturedClient);
@@ -36,7 +36,7 @@ class FactoryTest extends TestCase
 
     public function testCreateClientIpv6()
     {
-        $promise = $this->factory->createClient('::1', 12345);
+        $promise = $this->factory->createClient('[::1]:12345');
 
         $capturedClient = $this->getValueFromResolvedPromise($promise);
         $this->assertInstanceOf('Datagram\Socket', $capturedClient);
@@ -46,7 +46,7 @@ class FactoryTest extends TestCase
 
     public function testCreateServer()
     {
-        $promise = $this->factory->createServer(12345, '127.0.0.1');
+        $promise = $this->factory->createServer('127.0.0.1:12345');
 
         $capturedServer = $this->getValueFromResolvedPromise($promise);
         $this->assertInstanceOf('Datagram\Socket', $capturedServer);

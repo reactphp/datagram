@@ -6,7 +6,7 @@ $loop = React\EventLoop\Factory::create();
 
 $factory = new Datagram\Factory($loop);
 
-$factory->createServer(1234)->then(function (Datagram\Socket $server) {
+$factory->createServer('localhost:1234')->then(function (Datagram\Socket $server) {
     $server->on('message', function($message, $address, $server) {
         $server->send('hello ' . $address . '! echo: ' . $message, $address);
 
