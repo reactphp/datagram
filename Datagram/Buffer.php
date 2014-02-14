@@ -8,8 +8,9 @@ use \Exception;
 
 class Buffer extends EventEmitter
 {
-    private $loop;
-    private $socket;
+    protected $loop;
+    protected $socket;
+
     private $listening = false;
     private $outgoing = array();
     private $writable = true;
@@ -29,32 +30,27 @@ class Buffer extends EventEmitter
         $this->outgoing []= array($data, $remoteAddress);
 
         if (!$this->listening) {
-            $this->loop->addWriteStream($this->socket, array($this, 'handleWrite'));
+            $this->handleResume();
             $this->listening = true;
         }
     }
 
-    public function handleWrite()
+    public function onWritable()
     {
         list($data, $remoteAddress) = array_shift($this->outgoing);
 
-        if ($remoteAddress === null) {
-            // do not use fwrite() as it obeys the stream buffer size and
-            // packets are not to be split at 8kb
-            $ret = @stream_socket_sendto($this->socket, $data);
-        } else {
-            $ret = @stream_socket_sendto($this->socket, $data, 0, $remoteAddress);
+        try {
+            $this->handleWrite($data, $remoteAddress);
         }
-
-        if ($ret < 0) {
-            $error = error_get_last();
-            $message = 'Unable to send packet: ' . trim($error['message']);
-            $this->emit('error', array(new Exception($message)));
+        catch (Exception $e) {
+            $this->emit('error', array($e, $this));
         }
 
         if (!$this->outgoing) {
-            $this->loop->removeWriteStream($this->socket);
-            $this->listening = false;
+            if ($this->listening) {
+                $this->handlePause();
+                $this->listening = false;
+            }
 
             if (!$this->writable) {
                 $this->close();
@@ -71,7 +67,7 @@ class Buffer extends EventEmitter
         $this->emit('close', array($this));
 
         if ($this->listening) {
-            $this->loop->removeWriteStream($this->socket);
+            $this->handlePause();
             $this->listening = false;
         }
 
@@ -89,8 +85,34 @@ class Buffer extends EventEmitter
 
         $this->writable = false;
 
-        if (!$this->listening) {
+        if (!$this->outgoing) {
             $this->close();
+        }
+    }
+
+    protected function handlePause()
+    {
+        $this->loop->removeWriteStream($this->socket);
+    }
+
+    protected function handleResume()
+    {
+        $this->loop->addWriteStream($this->socket, array($this, 'onWritable'));
+    }
+
+    protected function handleWrite($data, $remoteAddress)
+    {
+        if ($remoteAddress === null) {
+            // do not use fwrite() as it obeys the stream buffer size and
+            // packets are not to be split at 8kb
+            $ret = @stream_socket_sendto($this->socket, $data);
+        } else {
+            $ret = @stream_socket_sendto($this->socket, $data, 0, $remoteAddress);
+        }
+
+        if ($ret < 0) {
+            $error = error_get_last();
+            throw new Exception('Unable to send packet: ' . trim($error['message']));
         }
     }
 }
