@@ -9,7 +9,7 @@ $resolver = $factory->createCached('8.8.8.8', $loop);
 
 $factory = new Datagram\Factory($loop, $resolver);
 
-$factory->createClient('localhost', 1234)->then(function (Datagram\Socket $client) use ($loop) {
+$factory->createClient('localhost:1234')->then(function (Datagram\Socket $client) use ($loop) {
     $client->send('first');
 
     $client->on('message', function($message, $serverAddress, $client) {

@@ -16,7 +16,7 @@ class SocketTest extends TestCase
 
     public function testCreateClientCloseWillNotBlock()
     {
-        $promise = $this->factory->createClient('127.0.0.1', 12345);
+        $promise = $this->factory->createClient('127.0.0.1:12345');
         $client = $this->getValueFromResolvedPromise($promise);
 
         $client->send('test');
@@ -40,7 +40,7 @@ class SocketTest extends TestCase
 
     public function testCreateClientEndWillNotBlock()
     {
-        $promise = $this->factory->createClient('127.0.0.1', 12345);
+        $promise = $this->factory->createClient('127.0.0.1:12345');
         $client = $this->getValueFromResolvedPromise($promise);
 
         $client->send('test');
@@ -77,7 +77,7 @@ class SocketTest extends TestCase
 
     public function testClientSendHugeWillFail()
     {
-        $promise = $this->factory->createClient('127.0.0.1', 12345);
+        $promise = $this->factory->createClient('127.0.0.1:12345');
         $client = $this->getValueFromResolvedPromise($promise);
 
         $client->send(str_repeat(1, 1024 * 1024));
@@ -89,10 +89,10 @@ class SocketTest extends TestCase
 
     public function testCreatePair()
     {
-        $promise = $this->factory->createServer(0, '127.0.0.1');
+        $promise = $this->factory->createServer('127.0.0.1:0');
         $server = $this->getValueFromResolvedPromise($promise);
 
-        $promise = $this->factory->createClient('127.0.0.1', $server->getPort());
+        $promise = $this->factory->createClient($server->getLocalAddress());
         $client = $this->getValueFromResolvedPromise($promise);
 
         $that = $this;
