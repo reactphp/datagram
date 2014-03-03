@@ -22,4 +22,8 @@ interface SocketInterface extends EventEmitterInterface
     public function resume();
 
     public function pause();
+
+    public function getLocalAddress();
+
+    public function getRemoteAddress();
 }
