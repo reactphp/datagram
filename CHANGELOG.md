@@ -4,7 +4,7 @@ This file is a manually maintained list of changes for each release. Feel free
 to add your changes here when sending pull requests. Also send corrections if
 you spot any mistakes.
 
-## 0.4.0 (2014-xx-xx)
+## 0.4.0 (2014-03-03)
 
 * BC break: Unified socket addresses (string URIs instead of host+port)
   ([#5](https://github.com/clue/datagram/pull/5)):
