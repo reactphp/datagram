@@ -110,7 +110,7 @@ class Buffer extends EventEmitter
             $ret = @stream_socket_sendto($this->socket, $data, 0, $remoteAddress);
         }
 
-        if ($ret < 0) {
+        if ($ret < 0 || $ret === false) {
             $error = error_get_last();
             throw new Exception('Unable to send packet: ' . trim($error['message']));
         }
