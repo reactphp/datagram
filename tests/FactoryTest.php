@@ -53,4 +53,16 @@ class FactoryTest extends TestCase
 
         $capturedServer->close();
     }
+
+    public function testCreateServerRandomPort()
+    {
+        $promise = $this->factory->createServer('127.0.0.1:0');
+
+        $capturedServer = $this->getValueFromResolvedPromise($promise);
+        $this->assertInstanceOf('Datagram\Socket', $capturedServer);
+
+        $this->assertNotEquals('127.0.0.1:0', $capturedServer->getLocalAddress());
+
+        $capturedServer->close();
+    }
 }
