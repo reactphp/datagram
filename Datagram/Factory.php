@@ -54,10 +54,22 @@ class Factory
         if (strpos($address, '://') === false) {
             $address = 'udp://' . $address;
         }
+
+        // parse_url() does not accept null ports (random port assignment) => manually remove
+        $nullport = false;
+        if (substr($address, -2) === ':0') {
+            $address = substr($address, 0, -2);
+            $nullport = true;
+        }
+
         $parts = parse_url($address);
 
         if (!$parts || !isset($parts['host'])) {
             return When::resolve($address);
+        }
+
+        if ($nullport) {
+            $parts['port'] = 0;
         }
 
         // remove square brackets for IPv6 addresses
