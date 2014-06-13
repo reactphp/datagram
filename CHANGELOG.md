@@ -4,6 +4,16 @@ This file is a manually maintained list of changes for each release. Feel free
 to add your changes here when sending pull requests. Also send corrections if
 you spot any mistakes.
 
+## 0.5.0 (2014-06-13)
+
+* Feature: Automatically assign a random port for port 0
+  ([#8](https://github.com/clue/datagram/pull/8))
+* Feature: First-class support for HHVM
+  ([#7](https://github.com/clue/datagram/pull/7))
+* Support React v0.4 (while preserving BC)
+  ([#13](https://github.com/clue/datagram/pull/13))
+* Use PSR-4 code layout, 
+
 ## 0.4.1 (2014-06-13)
 
 * Fix: Uncaught Exception while processing ICMP rejection datagrams
