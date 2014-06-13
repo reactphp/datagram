@@ -4,7 +4,7 @@ namespace Datagram;
 
 use React\EventLoop\LoopInterface;
 use React\Dns\Resolver\Resolver;
-use React\Promise\When;
+use React\Promise\Deferred;
 use Datagram\Socket;
 use \Exception;
 
@@ -65,7 +65,10 @@ class Factory
         $parts = parse_url($address);
 
         if (!$parts || !isset($parts['host'])) {
-            return When::resolve($address);
+            $deferred = new Deferred();
+            $deferred->resolve($address);
+
+            return $deferred->promise();
         }
 
         if ($nullport) {
@@ -97,16 +100,26 @@ class Factory
     {
         // there's no need to resolve if the host is already given as an IP address
         if (false !== filter_var($host, FILTER_VALIDATE_IP)) {
-            return When::resolve($host);
+            $deferred = new Deferred();
+            $deferred->resolve($host);
+
+            return $deferred->promise();
         }
         // todo: remove this once the dns resolver can handle the hosts file!
         if ($host === 'localhost') {
-            return When::resolve('127.0.0.1');
+            $deferred = new Deferred();
+            $deferred->resolve('127.0.0.1');
+
+            return $deferred->promise();
         }
 
         if ($this->resolver === null) {
-            return When::reject(new Exception('No resolver given in order to get IP address for given hostname'));
+            $deferred = new Deferred();
+            $deferred->reject(new Exception('No resolver given in order to get IP address for given hostname'));
+
+            return $deferred->promise();
         }
+
         return $this->resolver->resolve($host);
     }
 }
