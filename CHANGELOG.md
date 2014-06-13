@@ -7,22 +7,22 @@ you spot any mistakes.
 ## 0.5.0 (2014-06-13)
 
 * Feature: Automatically assign a random port for port 0
-  ([#8](https://github.com/clue/datagram/pull/8))
+  ([#8](https://github.com/clue/reactphp-datagram/pull/8))
 * Feature: First-class support for HHVM
-  ([#7](https://github.com/clue/datagram/pull/7))
+  ([#7](https://github.com/clue/reactphp-datagram/pull/7))
 * Support React v0.4 (while preserving BC)
-  ([#13](https://github.com/clue/datagram/pull/13))
-* Use PSR-4 code layout, 
+  ([#13](https://github.com/clue/reactphp-datagram/pull/13))
+* Use PSR-4 code layout, update homepage
 
 ## 0.4.1 (2014-06-13)
 
 * Fix: Uncaught Exception while processing ICMP rejection datagrams
-  ([#12](https://github.com/clue/datagram/pull/12))
+  ([#12](https://github.com/clue/reactphp-datagram/pull/12))
 
 ## 0.4.0 (2014-03-03)
 
 * BC break: Unified socket addresses (string URIs instead of host+port)
-  ([#5](https://github.com/clue/datagram/pull/5)):
+  ([#5](https://github.com/clue/reactphp-datagram/pull/5)):
   
   * The `Factory` now only accepts a single-argument full socket address (i.e. host:port for UDP/IP):
 
@@ -41,7 +41,7 @@ $factory->createClient('localhost:1337')->then(…);
     * `SocketInterface::getLocalAddress()`
     * `SocketInterface::getRemoteAddress()`
 * Small refactoring to ease extending base classes
-  ([#4](https://github.com/clue/datagram/pull/4))
+  ([#4](https://github.com/clue/reactphp-datagram/pull/4))
 
 ## 0.3.0 (2013-06-23)
 
