@@ -4,6 +4,7 @@ namespace Datagram;
 
 use React\EventLoop\LoopInterface;
 use Evenement\EventEmitter;
+use Exception;
 
 class Socket extends EventEmitter implements SocketInterface
 {
@@ -124,7 +125,7 @@ class Socket extends EventEmitter implements SocketInterface
             // due to the nature of UDP, there's no way to tell which one exactly
             // $peer is not filled either
 
-            throw new \Exception('Invalid message');
+            throw new Exception('Invalid message');
         }
 
         $peerAddress = $this->sanitizeAddress($peerAddress);
