@@ -1,9 +1,15 @@
 {
     "name": "clue/datagram",
-    "homepage": "https://github.com/clue/datagram",
     "description": "UDP datagram socket client and server for reactphp",
     "keywords": ["udp", "datagram", "dgram", "socket", "client", "server", "react", "async"],
+    "homepage": "https://github.com/clue/reactphp-datagram",
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Christian Lück",
+            "email": "christian@lueck.tv"
+        }
+    ],
     "autoload": {
         "psr-4": {"Datagram\\": "src"}
     },
