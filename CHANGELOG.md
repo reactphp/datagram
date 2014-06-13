@@ -4,6 +4,11 @@ This file is a manually maintained list of changes for each release. Feel free
 to add your changes here when sending pull requests. Also send corrections if
 you spot any mistakes.
 
+## 0.4.1 (2014-06-13)
+
+* Fix: Uncaught Exception while processing ICMP rejection datagrams
+  ([#12](https://github.com/clue/datagram/pull/12))
+
 ## 0.4.0 (2014-03-03)
 
 * BC break: Unified socket addresses (string URIs instead of host+port)
