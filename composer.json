@@ -14,9 +14,10 @@
         "psr-4": {"Datagram\\": "src"}
     },
     "require": {
-        "evenement/evenement": "1.*",
-        "react/event-loop": ">=0.2, <0.4",
-        "react/dns": ">=0.2, <0.4",
-        "react/promise": "1.*"
+        "php": ">=5.3",
+        "evenement/evenement": "~1.0|~2.0",
+        "react/event-loop": ">=0.2, <0.5",
+        "react/dns": ">=0.2, <0.5",
+        "react/promise": "~1.0|~2.0"
     }
 }
