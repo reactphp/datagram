@@ -87,6 +87,32 @@ class SocketTest extends TestCase
         $this->loop->run();
     }
 
+    public function testClientSendNoServerWillFail()
+    {
+        $promise = $this->factory->createClient('127.0.0.1:1234');
+        $client = $this->getValueFromResolvedPromise($promise);
+
+        // send a message to a socket that is not actually listening
+        // expect the remote end to reject this by sending an ICMP message
+        // which we will receive as an error message. This depends on the
+        // host to actually reject UDP datagrams, which not all systems do.
+        $client->send('hello');
+        $client->on('error', $this->expectCallableOnce());
+
+        $loop = $this->loop;
+        $client->on('error', function () use ($loop) {
+             $loop->stop();
+        });
+
+        $that = $this;
+        $this->loop->addTimer(1.0, function () use ($that, $loop) {
+            $loop->stop();
+            $that->markTestSkipped('UDP packet was not rejected after 0.5s, ignoring test');
+        });
+
+        $this->loop->run();
+    }
+
     public function testCreatePair()
     {
         $promise = $this->factory->createServer('127.0.0.1:0');
