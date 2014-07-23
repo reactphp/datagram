@@ -23,6 +23,8 @@ $factory->createClient('localhost:1234')->then(function (Datagram\Socket $client
 $loop->run();
 ```
 
+See also the [examples](examples).
+
 ## Usage
 
 This library's API is modelled after node.js's API for
