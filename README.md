@@ -1,4 +1,6 @@
-# clue/datagram [![Build Status](https://travis-ci.org/clue/php-datagram.svg?branch=master)](https://travis-ci.org/clue/php-datagram)
+# Datagram component
+
+[![Build Status](https://travis-ci.org/reactphp/datagram.svg?branch=master)](https://travis-ci.org/reactphp/datagram)
 
 UDP datagram socket client and server for reactphp
 
@@ -10,9 +12,9 @@ Once [installed](#install), you can use the following code to connect to an UDP 
 ```php
 $loop = React\EventLoop\Factory::create();
 
-$factory = new Datagram\Factory($loop);
+$factory = new React\Datagram\Factory($loop);
 
-$factory->createClient('localhost:1234')->then(function (Datagram\Socket $client) {
+$factory->createClient('localhost:1234')->then(function (React\Datagram\Socket $client) {
     $client->send('first');
 
     $client->on('message', function($message, $serverAddress, $client) {
@@ -37,7 +39,7 @@ The recommended way to install this library is [through composer](http://getcomp
 ```JSON
 {
     "require": {
-        "clue/datagram": "0.5.*"
+        "react/datagram": "0.5.*"
     }
 }
 ```

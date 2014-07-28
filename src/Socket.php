@@ -1,6 +1,6 @@
 <?php
 
-namespace Datagram;
+namespace React\Datagram;
 
 use React\EventLoop\LoopInterface;
 use Evenement\EventEmitter;

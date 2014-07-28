@@ -1,8 +1,8 @@
 {
-    "name": "clue/datagram",
+    "name": "react/datagram",
     "description": "UDP datagram socket client and server for reactphp",
     "keywords": ["udp", "datagram", "dgram", "socket", "client", "server", "react", "async"],
-    "homepage": "https://github.com/clue/php-datagram",
+    "homepage": "https://github.com/reactphp/datagram",
     "license": "MIT",
     "authors": [
         {
@@ -11,7 +11,7 @@
         }
     ],
     "autoload": {
-        "psr-4": {"Datagram\\": "src"}
+        "psr-4": {"React\\Datagram\\": "src"}
     },
     "require": {
         "php": ">=5.3",

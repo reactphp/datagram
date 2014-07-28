@@ -1,11 +1,11 @@
 <?php
 
-namespace Datagram;
+namespace React\Datagram;
 
 use React\EventLoop\LoopInterface;
 use React\Dns\Resolver\Resolver;
 use React\Promise\Deferred;
-use Datagram\Socket;
+use React\Datagram\Socket;
 use \Exception;
 
 class Factory

@@ -1,6 +1,6 @@
 <?php
 
-use Datagram\Socket;
+use React\Datagram\Socket;
 use React\Promise\When;
 use React\Promise\PromiseInterface;
 
@@ -11,7 +11,7 @@ class SocketTest extends TestCase
     public function setUp()
     {
         $this->loop = React\EventLoop\Factory::create();
-        $this->factory = new Datagram\Factory($this->loop, $this->createResolverMock());
+        $this->factory = new React\Datagram\Factory($this->loop, $this->createResolverMock());
     }
 
     public function testCreateClientCloseWillNotBlock()
