@@ -39,7 +39,7 @@ The recommended way to install this library is [through composer](http://getcomp
 ```JSON
 {
     "require": {
-        "react/datagram": "0.5.*"
+        "react/datagram": "~1.0"
     }
 }
 ```

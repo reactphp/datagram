@@ -4,57 +4,10 @@ This file is a manually maintained list of changes for each release. Feel free
 to add your changes here when sending pull requests. Also send corrections if
 you spot any mistakes.
 
-## 0.5.0 (2014-06-13)
+## 1.0.0 (2014-10-23)
 
-* Feature: Automatically assign a random port for port 0
-  ([#8](https://github.com/clue/reactphp-datagram/pull/8))
-* Feature: First-class support for HHVM
-  ([#7](https://github.com/clue/reactphp-datagram/pull/7))
-* Support React v0.4 (while preserving BC)
-  ([#13](https://github.com/clue/reactphp-datagram/pull/13))
-* Use PSR-4 code layout, update homepage
+Initial tagged release
 
-## 0.4.1 (2014-06-13)
-
-* Fix: Uncaught Exception while processing ICMP rejection datagrams
-  ([#12](https://github.com/clue/reactphp-datagram/pull/12))
-
-## 0.4.0 (2014-03-03)
-
-* BC break: Unified socket addresses (string URIs instead of host+port)
-  ([#5](https://github.com/clue/reactphp-datagram/pull/5)):
-  
-  * The `Factory` now only accepts a single-argument full socket address (i.e. host:port for UDP/IP):
-
-    ```php
-// Previously:
-$factory->createServer(1337, 'localhost')->then(…);
-$factory->createClient('localhost', 1337)->then(…);
-// Now:
-$factory->createServer('localhost:1337')->then(…);
-$factory->createClient('localhost:1337')->then(…);
-```
-
-  * The methods `Socket::getAddress()` and `Socket::getPort()` have been removed.
-  * Instead, the following two methods have been introduced which both return
-    a full socket address:
-    * `SocketInterface::getLocalAddress()`
-    * `SocketInterface::getRemoteAddress()`
-* Small refactoring to ease extending base classes
-  ([#4](https://github.com/clue/reactphp-datagram/pull/4))
-
-## 0.3.0 (2013-06-23)
-
-* Feature: Add `Datagram\Socket::end()` method which closes the socket as soon
-as the remaining outgoing buffer has been sent.
-* Fix: Actually close underlying socket descriptor in `Datagram\Socket::close()`.
-
-## 0.2.0 (2013-04-16)
-
-* BC break: Whole new API, adapted to nodejs's Socket.dgram API.
-* BC break: Unified `Datagram\Socket` instead of `Datagram\Client` and `Datagram\Server`
-* Support react v0.3
-
-## 0.1.0 (2013-01-21)
-
-* First tagged release
+> This project has been migrated over from [clue/datagram](https://github.com/clue/php-datagram)
+> which has originally been released in January 2013.
+> Upgrading from clue/datagram v0.5.0? Use namespace `React\Datagram` instead of `Datagram` and you're ready to go!
