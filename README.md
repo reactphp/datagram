@@ -1,6 +1,6 @@
 # Datagram component
 
-[![Build Status](https://travis-ci.org/reactphp/datagram.svg?branch=master)](https://travis-ci.org/reactphp/datagram)
+[![Build Status](https://travis-ci.org/reactphp/datagram.svg?branch=master)](https://travis-ci.org/reactphp/datagram) [![Code Climate](https://codeclimate.com/github/reactphp/datagram/badges/gpa.svg)](https://codeclimate.com/github/reactphp/datagram)
 
 UDP datagram socket client and server for reactphp
 
