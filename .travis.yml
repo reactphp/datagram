@@ -7,12 +7,6 @@ php:
   - 7
   - hhvm
 
-matrix:
-  allow_failures:
-    - php: 7
-    - php: hhvm
-  fast_finish: true
-
 before_script:
   - composer install --dev --prefer-source --no-interaction
 script:
