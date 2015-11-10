@@ -104,10 +104,10 @@ class Socket extends EventEmitter implements SocketInterface
     {
         // doc comment suggests IPv6 address is not enclosed in square brackets?
 
-        $pos = strrpos(':', $address);
+        $pos = strrpos($address, ':');
         // this is an IPv6 address which includes colons but no square brackets
         if ($pos !== false && substr($address, 0, 1) !== '[') {
-            if (strpos(':', $address) < $pos) {
+            if (strpos($address, ':') < $pos) {
                 $port = substr($address, $pos + 1);
                 $address = '[' . substr($address, 0, $pos) . ']:' . $port;
             }

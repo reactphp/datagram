@@ -141,4 +141,46 @@ class SocketTest extends TestCase
 
         $this->loop->run();
     }
+
+    public function provideSanitizeAddress()
+    {
+        return array(
+            array(
+                '127.0.0.1:1337',
+            ),
+            array(
+                '[::1]:1337',
+            ),
+        );
+    }
+
+    /**
+     * @dataProvider provideSanitizeAddress
+     */
+    public function testSanitizeAddress($address)
+    {
+        $promise = $this->factory->createServer($address);
+        $server = $this->getValueFromResolvedPromise($promise);
+        
+        $promise = $this->factory->createClient($server->getLocalAddress());
+        $client = $this->getValueFromResolvedPromise($promise);
+
+        $that = $this;
+        $server->on('message', function ($message, $remote, $server) use ($that) {
+            // once the server receives a message, send it pack to client and stop server
+            $server->send('response:' . $message, $remote);
+            $server->end();
+        });
+
+        $client->on('message', function ($message, $remote, $client) use ($that, $address) {
+            $that->assertEquals($address, $remote);
+
+            // once the client receives a message, stop client
+            $client->end();
+        });
+
+        $client->send('test');
+
+        $this->loop->run();
+    }
 }
