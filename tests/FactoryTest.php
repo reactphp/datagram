@@ -1,8 +1,6 @@
 <?php
 
 use React\Datagram\Socket;
-use React\Promise\When;
-use React\Promise\PromiseInterface;
 
 class FactoryTest extends TestCase
 {
