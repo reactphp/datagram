@@ -1,6 +1,7 @@
 <?php
 
 use React\Datagram\Socket;
+use Clue\React\Block;
 
 class FactoryTest extends TestCase
 {
@@ -16,7 +17,7 @@ class FactoryTest extends TestCase
     {
         $promise = $this->factory->createClient('127.0.0.1:12345');
 
-        $capturedClient = $this->getValueFromResolvedPromise($promise);
+        $capturedClient = Block\await($promise, $this->loop);
         $this->assertInstanceOf('React\Datagram\Socket', $capturedClient);
 
         $capturedClient->close();
@@ -26,7 +27,7 @@ class FactoryTest extends TestCase
     {
         $promise = $this->factory->createClient('localhost:12345');
 
-        $capturedClient = $this->getValueFromResolvedPromise($promise);
+        $capturedClient = Block\await($promise, $this->loop);
         $this->assertInstanceOf('React\Datagram\Socket', $capturedClient);
 
         $capturedClient->close();
@@ -36,7 +37,7 @@ class FactoryTest extends TestCase
     {
         $promise = $this->factory->createClient('[::1]:12345');
 
-        $capturedClient = $this->getValueFromResolvedPromise($promise);
+        $capturedClient = Block\await($promise, $this->loop);
         $this->assertInstanceOf('React\Datagram\Socket', $capturedClient);
 
         $capturedClient->close();
@@ -46,7 +47,7 @@ class FactoryTest extends TestCase
     {
         $promise = $this->factory->createServer('127.0.0.1:12345');
 
-        $capturedServer = $this->getValueFromResolvedPromise($promise);
+        $capturedServer = Block\await($promise, $this->loop);
         $this->assertInstanceOf('React\Datagram\Socket', $capturedServer);
 
         $capturedServer->close();
@@ -56,7 +57,7 @@ class FactoryTest extends TestCase
     {
         $promise = $this->factory->createServer('127.0.0.1:0');
 
-        $capturedServer = $this->getValueFromResolvedPromise($promise);
+        $capturedServer = Block\await($promise, $this->loop);
         $this->assertInstanceOf('React\Datagram\Socket', $capturedServer);
 
         $this->assertNotEquals('127.0.0.1:0', $capturedServer->getLocalAddress());
