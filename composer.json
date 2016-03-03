@@ -18,7 +18,7 @@
         "evenement/evenement": "~1.0|~2.0",
         "react/event-loop": ">=0.2, <0.5",
         "react/dns": ">=0.2, <0.5",
-        "react/promise": "~2.0|~1.1"
+        "react/promise": "~2.1|~1.2"
     },
     "require-dev": {
         "clue/block-react": "~1.0"
