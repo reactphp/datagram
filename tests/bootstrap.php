@@ -4,25 +4,6 @@ require __DIR__ . '/../vendor/autoload.php';
 
 abstract class TestCase extends PHPUnit_Framework_TestCase
 {
-    protected function getValueFromResolvedPromise($promise)
-    {
-        $this->assertInstanceOf('React\Promise\PromiseInterface', $promise);
-
-        $loop = $this->loop;
-        $capturedValue = null;
-        $promise->then(function ($value) use (&$capturedValue, $loop) {
-            $capturedValue = $value;
-            $loop->stop();
-        }, $this->expectCallableNever());
-
-        // future-turn resolutions are not enforced, so the value MAY be known here already
-        if ($capturedValue === null) {
-            $loop->run();
-        }
-
-        return $capturedValue;
-    }
-
     protected function expectCallableOnce()
     {
         $mock = $this->createCallableMock();

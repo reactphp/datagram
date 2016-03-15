@@ -1,4 +1,5 @@
 language: php
+
 php:
   - 5.3
   - 5.4
@@ -7,7 +8,10 @@ php:
   - 7
   - hhvm
 
-before_script:
-  - composer install --dev --prefer-source --no-interaction
+sudo: false
+
+install:
+  - composer install --prefer-source --no-interaction
+
 script:
   - phpunit --coverage-text
