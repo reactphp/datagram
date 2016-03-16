@@ -1,16 +1,21 @@
 <?php
 
 use React\Datagram\Socket;
+use React\Datagram\Factory;
 use Clue\React\Block;
+use React\Promise;
 
 class FactoryTest extends TestCase
 {
+    private $loop;
+    private $resolver;
     private $factory;
 
     public function setUp()
     {
         $this->loop = React\EventLoop\Factory::create();
-        $this->factory = new React\Datagram\Factory($this->loop, $this->createResolverMock());
+        $this->resolver = $this->createResolverMock();
+        $this->factory = new Factory($this->loop, $this->resolver);
     }
 
     public function testCreateClient()
@@ -63,5 +68,55 @@ class FactoryTest extends TestCase
         $this->assertNotEquals('127.0.0.1:0', $capturedServer->getLocalAddress());
 
         $capturedServer->close();
+    }
+
+    public function testCreateClientWithIpWillNotUseResolver()
+    {
+        $this->resolver->expects($this->never())->method('resolve');
+
+        $client = Block\await($this->factory->createClient('127.0.0.1:0'), $this->loop);
+        $client->close();
+    }
+
+    public function testCreateClientWithHostnameWillUseResolver()
+    {
+        $this->resolver->expects($this->once())->method('resolve')->with('example.com')->willReturn(Promise\resolve('127.0.0.1'));
+
+        $client = Block\await($this->factory->createClient('example.com:0'), $this->loop);
+        $client->close();
+    }
+
+    public function testCreateClientWithHostnameWillRejectIfResolverRejects()
+    {
+        $this->resolver->expects($this->once())->method('resolve')->with('example.com')->willReturn(Promise\reject(new \RuntimeException('test')));
+
+        $this->setExpectedException('RuntimeException');
+        Block\await($this->factory->createClient('example.com:0'), $this->loop);
+    }
+
+    public function testCreateClientWithHostnameWillRejectIfNoResolverIsGiven()
+    {
+        $this->factory = new Factory($this->loop);
+
+        $this->setExpectedException('Exception');
+        Block\await($this->factory->createClient('example.com:0'), $this->loop);
+    }
+
+    /**
+     * @expectedException Exception
+     * @expectedExceptionMessage Unable to create client socket
+     */
+    public function testCreateClientWithInvalidHostnameWillReject()
+    {
+        Block\await($this->factory->createClient('/////'), $this->loop);
+    }
+
+    /**
+     * @expectedException Exception
+     * @expectedExceptionMessage Unable to create server socket
+     */
+    public function testCreateServerWithInvalidHostnameWillReject()
+    {
+        Block\await($this->factory->createServer('/////'), $this->loop);
     }
 }

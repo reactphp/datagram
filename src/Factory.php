@@ -25,7 +25,7 @@ class Factory
         $loop = $this->loop;
 
         return $this->resolveAddress($address)->then(function ($address) use ($loop) {
-            $socket = stream_socket_client($address, $errno, $errstr);
+            $socket = @stream_socket_client($address, $errno, $errstr);
             if (!$socket) {
                 throw new Exception('Unable to create client socket: ' . $errstr, $errno);
             }
@@ -40,7 +40,7 @@ class Factory
         $loop = $this->loop;
 
         return $this->resolveAddress($address)->then(function ($address) use ($loop) {
-            $socket = stream_socket_server($address, $errno, $errstr, STREAM_SERVER_BIND);
+            $socket = @stream_socket_server($address, $errno, $errstr, STREAM_SERVER_BIND);
             if (!$socket) {
                 throw new Exception('Unable to create server socket: ' . $errstr, $errno);
             }
