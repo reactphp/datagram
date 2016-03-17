@@ -119,4 +119,28 @@ class FactoryTest extends TestCase
     {
         Block\await($this->factory->createServer('/////'), $this->loop);
     }
+
+    public function testCancelCreateClientWithCancellableHostnameResolver()
+    {
+        $promise = new Promise\Promise(function () { }, $this->expectCallableOnce());
+        $this->resolver->expects($this->once())->method('resolve')->with('example.com')->willReturn($promise);
+
+        $promise = $this->factory->createClient('example.com:0');
+        $promise->cancel();
+
+        $this->setExpectedException('RuntimeException');
+        Block\await($promise, $this->loop);
+    }
+
+    public function testCancelCreateClientWithUncancellableHostnameResolver()
+    {
+        $promise = $this->getMock('React\Promise\PromiseInterface');
+        $this->resolver->expects($this->once())->method('resolve')->with('example.com')->willReturn($promise);
+
+        $promise = $this->factory->createClient('example.com:0');
+        $promise->cancel();
+
+        $this->setExpectedException('RuntimeException');
+        Block\await($promise, $this->loop);
+    }
 }

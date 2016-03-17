@@ -7,6 +7,7 @@ use React\Dns\Resolver\Resolver;
 use React\Promise;
 use React\Datagram\Socket;
 use \Exception;
+use React\Promise\CancellablePromiseInterface;
 
 class Factory
 {
@@ -108,6 +109,23 @@ class Factory
             return Promise\reject(new Exception('No resolver given in order to get IP address for given hostname'));
         }
 
-        return $this->resolver->resolve($host);
+        $promise = $this->resolver->resolve($host);
+
+        // wrap DNS lookup in order to control cancellation behavior
+        return new Promise\Promise(
+            function ($resolve, $reject) use ($promise) {
+                // forward promise resolution
+                $promise->then($resolve, $reject);
+            },
+            function ($_, $reject) use ($promise) {
+                // reject with custom message once cancelled
+                $reject(new \RuntimeException('Cancelled creating socket during DNS lookup'));
+
+                // (try to) cancel pending DNS lookup, otherwise ignoring its results
+                if ($promise instanceof CancellablePromiseInterface) {
+                    $promise->cancel();
+                }
+            }
+        );
     }
 }
