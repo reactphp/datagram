@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.1.0 (2016-03-19)
+
+* Feature: Support promise cancellation (cancellation of underlying DNS lookup)
+  (#12 by @clue)
+
+* Fix: Fix error reporting when trying to create invalid sockets
+  (#11 by @clue)
+
+* Improve test suite and update dependencies
+  (#7, #8 by @clue)
+
 ## 1.0.1 (2015-11-13)
 
 * Fix: Correct formatting for remote peer address of incoming datagrams when using IPv6
