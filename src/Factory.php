@@ -22,7 +22,6 @@ class Factory
 
     public function createClient($address)
     {
-        $factory = $this;
         $loop = $this->loop;
 
         return $this->resolveAddress($address)->then(function ($address) use ($loop) {
@@ -37,7 +36,6 @@ class Factory
 
     public function createServer($address)
     {
-        $factory = $this;
         $loop = $this->loop;
 
         return $this->resolveAddress($address)->then(function ($address) use ($loop) {
