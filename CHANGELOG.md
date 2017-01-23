@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.1 (2017-01-23)
+
+* Fix: Properly format IPv6 addresses and return `null` for unknown addresses
+  (#14 by @clue)
+
+* Fix: Skip IPv6 tests if not supported by the system
+  (#15 by @clue)
+
 ## 1.1.0 (2016-03-19)
 
 * Feature: Support promise cancellation (cancellation of underlying DNS lookup)
