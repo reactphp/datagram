@@ -159,7 +159,16 @@ class SocketTest extends TestCase
     public function testSanitizeAddress($address)
     {
         $promise = $this->factory->createServer($address);
-        $server = Block\await($promise, $this->loop);
+
+        try {
+            $server = Block\await($promise, $this->loop);
+        } catch (\Exception $e) {
+            if (strpos($address, '[') === false) {
+                throw $e;
+            }
+
+            $this->markTestSkipped('Unable to start IPv6 server socket (IPv6 not supported on this system?)');
+        }
 
         $promise = $this->factory->createClient($server->getLocalAddress());
         $client = Block\await($promise, $this->loop);
