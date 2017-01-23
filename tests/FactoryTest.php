@@ -25,7 +25,14 @@ class FactoryTest extends TestCase
         $capturedClient = Block\await($promise, $this->loop);
         $this->assertInstanceOf('React\Datagram\Socket', $capturedClient);
 
+        $this->assertEquals('127.0.0.1:12345', $capturedClient->getRemoteAddress());
+
+        $this->assertContains('127.0.0.1:', $capturedClient->getLocalAddress());
+        $this->assertNotEquals('127.0.0.1:12345', $capturedClient->getLocalAddress());
+
         $capturedClient->close();
+
+        $this->assertNull($capturedClient->getRemoteAddress());
     }
 
     public function testCreateClientLocalhost()
@@ -34,6 +41,11 @@ class FactoryTest extends TestCase
 
         $capturedClient = Block\await($promise, $this->loop);
         $this->assertInstanceOf('React\Datagram\Socket', $capturedClient);
+
+        $this->assertEquals('127.0.0.1:12345', $capturedClient->getRemoteAddress());
+
+        $this->assertContains('127.0.0.1:', $capturedClient->getLocalAddress());
+        $this->assertNotEquals('127.0.0.1:12345', $capturedClient->getLocalAddress());
 
         $capturedClient->close();
     }
@@ -45,6 +57,11 @@ class FactoryTest extends TestCase
         $capturedClient = Block\await($promise, $this->loop);
         $this->assertInstanceOf('React\Datagram\Socket', $capturedClient);
 
+        $this->assertEquals('[::1]:12345', $capturedClient->getRemoteAddress());
+
+        $this->assertContains('[::1]:', $capturedClient->getLocalAddress());
+        $this->assertNotEquals('[::1]:12345', $capturedClient->getLocalAddress());
+
         $capturedClient->close();
     }
 
@@ -55,7 +72,12 @@ class FactoryTest extends TestCase
         $capturedServer = Block\await($promise, $this->loop);
         $this->assertInstanceOf('React\Datagram\Socket', $capturedServer);
 
+        $this->assertEquals('127.0.0.1:12345', $capturedServer->getLocalAddress());
+        $this->assertNull($capturedServer->getRemoteAddress());
+
         $capturedServer->close();
+
+        $this->assertNull($capturedServer->getLocalAddress());
     }
 
     public function testCreateServerRandomPort()
@@ -66,6 +88,7 @@ class FactoryTest extends TestCase
         $this->assertInstanceOf('React\Datagram\Socket', $capturedServer);
 
         $this->assertNotEquals('127.0.0.1:0', $capturedServer->getLocalAddress());
+        $this->assertNull($capturedServer->getRemoteAddress());
 
         $capturedServer->close();
     }
