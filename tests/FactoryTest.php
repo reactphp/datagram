@@ -54,7 +54,12 @@ class FactoryTest extends TestCase
     {
         $promise = $this->factory->createClient('[::1]:12345');
 
-        $capturedClient = Block\await($promise, $this->loop);
+        try {
+            $capturedClient = Block\await($promise, $this->loop);
+        } catch (\Exception $e) {
+            $this->markTestSkipped('Unable to start IPv6 client socket (IPv6 not supported on this system?)');
+        }
+
         $this->assertInstanceOf('React\Datagram\Socket', $capturedClient);
 
         $this->assertEquals('[::1]:12345', $capturedClient->getRemoteAddress());
