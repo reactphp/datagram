@@ -162,7 +162,7 @@ class FactoryTest extends TestCase
 
     public function testCancelCreateClientWithUncancellableHostnameResolver()
     {
-        $promise = $this->getMock('React\Promise\PromiseInterface');
+        $promise = $this->getMockBuilder('React\Promise\PromiseInterface')->getMock();
         $this->resolver->expects($this->once())->method('resolve')->with('example.com')->willReturn($promise);
 
         $promise = $this->factory->createClient('example.com:0');
