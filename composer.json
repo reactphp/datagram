@@ -1,7 +1,7 @@
 {
     "name": "react/datagram",
-    "description": "UDP datagram socket client and server for reactphp",
-    "keywords": ["udp", "datagram", "dgram", "socket", "client", "server", "react", "async"],
+    "description": "Event-driven UDP datagram socket client and server for ReactPHP",
+    "keywords": ["udp", "datagram", "dgram", "socket", "client", "server", "ReactPHP", "async"],
     "homepage": "https://github.com/reactphp/datagram",
     "license": "MIT",
     "authors": [

@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.2.0 (2017-08-09)
+
+* Feature: Target evenement 3.0 a long side 2.0 and 1.0
+  (#16 by @WyriHaximus)
+
+* Feature: Forward compatibility with EventLoop v1.0 and v0.5
+  (#18 by @clue)
+
+* Improve test suite by updating Travis build config so new defaults do not break the build
+  (#17 by @clue)
+
 ## 1.1.1 (2017-01-23)
 
 * Fix: Properly format IPv6 addresses and return `null` for unknown addresses

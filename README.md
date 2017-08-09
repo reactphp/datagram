@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/reactphp/datagram.svg?branch=master)](https://travis-ci.org/reactphp/datagram) [![Code Climate](https://codeclimate.com/github/reactphp/datagram/badges/gpa.svg)](https://codeclimate.com/github/reactphp/datagram)
 
-UDP datagram socket client and server for reactphp
+Event-driven UDP datagram socket client and server for [ReactPHP](http://reactphp.org)
 
 ## Quickstart example
 
@@ -38,7 +38,7 @@ The recommended way to install this library is [through Composer](http://getcomp
 [New to Composer?](http://getcomposer.org/doc/00-intro.md)
 
 ```bash
-$ composer require react/datagram:^1.1.1
+$ composer require react/datagram:^1.2
 ```
 
 See also the [CHANGELOG](CHANGELOG.md) for details about version upgrades.
