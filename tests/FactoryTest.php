@@ -20,6 +20,8 @@ class FactoryTest extends TestCase
 
     public function testCreateClient()
     {
+        $this->resolver->expects($this->never())->method('resolve');
+
         $promise = $this->factory->createClient('127.0.0.1:12345');
 
         $capturedClient = Block\await($promise, $this->loop);
@@ -37,6 +39,8 @@ class FactoryTest extends TestCase
 
     public function testCreateClientLocalhost()
     {
+        $this->resolver->expects($this->once())->method('resolve')->with('localhost')->willReturn(Promise\resolve('127.0.0.1'));
+
         $promise = $this->factory->createClient('localhost:12345');
 
         $capturedClient = Block\await($promise, $this->loop);

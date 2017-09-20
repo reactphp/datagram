@@ -98,10 +98,6 @@ class Factory
         if (false !== filter_var($host, FILTER_VALIDATE_IP)) {
             return Promise\resolve($host);
         }
-        // todo: remove this once the dns resolver can handle the hosts file!
-        if ($host === 'localhost') {
-            return Promise\resolve('127.0.0.1');
-        }
 
         if ($this->resolver === null) {
             return Promise\reject(new Exception('No resolver given in order to get IP address for given hostname'));
