@@ -54,6 +54,17 @@ class FactoryTest extends TestCase
         $capturedClient->close();
     }
 
+    public function testCreateClientLocalhostWithDefaultResolver()
+    {
+        $this->resolver = null;
+        $this->factory = new Factory($this->loop);
+
+        $promise = $this->factory->createClient('localhost:12345');
+
+        $capturedClient = Block\await($promise, $this->loop);
+        $capturedClient->close();
+    }
+
     public function testCreateClientIpv6()
     {
         $promise = $this->factory->createClient('[::1]:12345');
@@ -123,14 +134,6 @@ class FactoryTest extends TestCase
         $this->resolver->expects($this->once())->method('resolve')->with('example.com')->willReturn(Promise\reject(new \RuntimeException('test')));
 
         $this->setExpectedException('RuntimeException');
-        Block\await($this->factory->createClient('example.com:0'), $this->loop);
-    }
-
-    public function testCreateClientWithHostnameWillRejectIfNoResolverIsGiven()
-    {
-        $this->factory = new Factory($this->loop);
-
-        $this->setExpectedException('Exception');
         Block\await($this->factory->createClient('example.com:0'), $this->loop);
     }
 
