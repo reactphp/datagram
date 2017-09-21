@@ -2,20 +2,32 @@
 
 namespace React\Datagram;
 
-use React\EventLoop\LoopInterface;
-use React\Dns\Resolver\Resolver;
-use React\Promise;
 use React\Datagram\Socket;
-use \Exception;
+use React\Dns\Resolver\Factory as DnsFactory;
+use React\Dns\Resolver\Resolver;
+use React\EventLoop\LoopInterface;
+use React\Promise;
 use React\Promise\CancellablePromiseInterface;
+use \Exception;
 
 class Factory
 {
     protected $loop;
     protected $resolver;
 
+    /**
+     *
+     * @param LoopInterface $loop
+     * @param Resolver|null $resolver Resolver instance to use. Will otherwise
+     *     default to using Google's public DNS 8.8.8.8
+     */
     public function __construct(LoopInterface $loop, Resolver $resolver = null)
     {
+        if ($resolver === null) {
+            $factory = new DnsFactory();
+            $resolver = $factory->create('8.8.8.8', $loop);
+        }
+
         $this->loop = $loop;
         $this->resolver = $resolver;
     }
@@ -97,10 +109,6 @@ class Factory
         // there's no need to resolve if the host is already given as an IP address
         if (false !== filter_var($host, FILTER_VALIDATE_IP)) {
             return Promise\resolve($host);
-        }
-
-        if ($this->resolver === null) {
-            return Promise\reject(new Exception('No resolver given in order to get IP address for given hostname'));
         }
 
         $promise = $this->resolver->resolve($host);
