@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.3.0 (2017-09-25)
+
+*   Feature: Always use `Resolver` with default DNS to match Socket component
+    and update DNS dependency to support hosts file on all platforms
+    (#19 and #20 by @clue)
+
+    This means that connecting to hosts such as `localhost` (and for example
+    those used for Docker containers) will now work as expected across all
+    platforms with no changes required:
+
+    ```php
+    $factory = new Factory($loop);
+    $factory->createClient('localhost:5353');
+    ```
+
 ## 1.2.0 (2017-08-09)
 
 * Feature: Target evenement 3.0 a long side 2.0 and 1.0
