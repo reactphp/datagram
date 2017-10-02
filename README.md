@@ -1,8 +1,8 @@
-# Datagram component
+# Datagram
 
 [![Build Status](https://travis-ci.org/reactphp/datagram.svg?branch=master)](https://travis-ci.org/reactphp/datagram) [![Code Climate](https://codeclimate.com/github/reactphp/datagram/badges/gpa.svg)](https://codeclimate.com/github/reactphp/datagram)
 
-Event-driven UDP datagram socket client and server for [ReactPHP](http://reactphp.org)
+Event-driven UDP datagram socket client and server for [ReactPHP](https://reactphp.org).
 
 ## Quickstart example
 
@@ -30,7 +30,7 @@ See also the [examples](examples).
 ## Usage
 
 This library's API is modelled after node.js's API for
-[UDP / Datagram Sockets (dgram.Socket)](http://nodejs.org/api/dgram.html).
+[UDP / Datagram Sockets (dgram.Socket)](https://nodejs.org/api/dgram.html).
 
 ## Install
 
@@ -60,4 +60,4 @@ $ php vendor/bin/phpunit
 
 ## License
 
-MIT
+MIT, see [LICENSE file](LICENSE).
