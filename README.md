@@ -11,7 +11,6 @@ Once [installed](#install), you can use the following code to connect to an UDP 
 
 ```php
 $loop = React\EventLoop\Factory::create();
-
 $factory = new React\Datagram\Factory($loop);
 
 $factory->createClient('localhost:1234')->then(function (React\Datagram\Socket $client) {
