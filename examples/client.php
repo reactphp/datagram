@@ -3,11 +3,7 @@
 require_once __DIR__.'/../vendor/autoload.php';
 
 $loop = React\EventLoop\Factory::create();
-
-$factory = new React\Dns\Resolver\Factory();
-$resolver = $factory->createCached('8.8.8.8', $loop);
-
-$factory = new React\Datagram\Factory($loop, $resolver);
+$factory = new React\Datagram\Factory($loop);
 
 $factory->createClient('localhost:1234')->then(function (React\Datagram\Socket $client) use ($loop) {
     $client->send('first');

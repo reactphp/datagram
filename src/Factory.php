@@ -3,6 +3,7 @@
 namespace React\Datagram;
 
 use React\Datagram\Socket;
+use React\Dns\Config\Config;
 use React\Dns\Resolver\Factory as DnsFactory;
 use React\Dns\Resolver\Resolver;
 use React\EventLoop\LoopInterface;
@@ -19,13 +20,18 @@ class Factory
      *
      * @param LoopInterface $loop
      * @param Resolver|null $resolver Resolver instance to use. Will otherwise
-     *     default to using Google's public DNS 8.8.8.8
+     *     try to load the system default DNS config or fall back to using
+     *     Google's public DNS 8.8.8.8
      */
     public function __construct(LoopInterface $loop, Resolver $resolver = null)
     {
         if ($resolver === null) {
+            // try to load nameservers from system config or default to Google's public DNS
+            $config = Config::loadSystemConfigBlocking();
+            $server = $config->nameservers ? reset($config->nameservers) : '8.8.8.8';
+
             $factory = new DnsFactory();
-            $resolver = $factory->create('8.8.8.8', $loop);
+            $resolver = $factory->create($server, $loop);
         }
 
         $this->loop = $loop;
