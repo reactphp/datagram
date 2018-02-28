@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.4.0 (2018-02-28)
+
+*   Feature: Update DNS dependency to support loading system default DNS
+    nameserver config on all supported platforms
+    (`/etc/resolv.conf` on Unix/Linux/Mac/Docker/WSL and WMIC on Windows)
+    (#23 by @clue)
+
+    This means that connecting to hosts that are managed by a local DNS server,
+    such as a corporate DNS server or when using Docker containers, will now
+    work as expected across all platforms with no changes required:
+
+    ```php
+    $factory = new Factory($loop);
+    $factory->createClient('intranet.example:5353');
+    ```
+
+*   Improve README
+    (#22 by @jsor)
+
 ## 1.3.0 (2017-09-25)
 
 *   Feature: Always use `Resolver` with default DNS to match Socket component
