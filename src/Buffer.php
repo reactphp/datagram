@@ -37,7 +37,7 @@ class Buffer extends EventEmitter
 
     public function onWritable()
     {
-        list($data, $remoteAddress) = array_shift($this->outgoing);
+        list($data, $remoteAddress) = \array_shift($this->outgoing);
 
         try {
             $this->handleWrite($data, $remoteAddress);
@@ -105,14 +105,14 @@ class Buffer extends EventEmitter
         if ($remoteAddress === null) {
             // do not use fwrite() as it obeys the stream buffer size and
             // packets are not to be split at 8kb
-            $ret = @stream_socket_sendto($this->socket, $data);
+            $ret = @\stream_socket_sendto($this->socket, $data);
         } else {
-            $ret = @stream_socket_sendto($this->socket, $data, 0, $remoteAddress);
+            $ret = @\stream_socket_sendto($this->socket, $data, 0, $remoteAddress);
         }
 
         if ($ret < 0 || $ret === false) {
-            $error = error_get_last();
-            throw new Exception('Unable to send packet: ' . trim($error['message']));
+            $error = \error_get_last();
+            throw new Exception('Unable to send packet: ' . \trim($error['message']));
         }
     }
 }
