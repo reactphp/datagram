@@ -28,7 +28,7 @@ class Factory
         if ($resolver === null) {
             // try to load nameservers from system config or default to Google's public DNS
             $config = Config::loadSystemConfigBlocking();
-            $server = $config->nameservers ? reset($config->nameservers) : '8.8.8.8';
+            $server = $config->nameservers ? \reset($config->nameservers) : '8.8.8.8';
 
             $factory = new DnsFactory();
             $resolver = $factory->create($server, $loop);
@@ -43,7 +43,7 @@ class Factory
         $loop = $this->loop;
 
         return $this->resolveAddress($address)->then(function ($address) use ($loop) {
-            $socket = @stream_socket_client($address, $errno, $errstr);
+            $socket = @\stream_socket_client($address, $errno, $errstr);
             if (!$socket) {
                 throw new Exception('Unable to create client socket: ' . $errstr, $errno);
             }
@@ -57,7 +57,7 @@ class Factory
         $loop = $this->loop;
 
         return $this->resolveAddress($address)->then(function ($address) use ($loop) {
-            $socket = @stream_socket_server($address, $errno, $errstr, STREAM_SERVER_BIND);
+            $socket = @\stream_socket_server($address, $errno, $errstr, \STREAM_SERVER_BIND);
             if (!$socket) {
                 throw new Exception('Unable to create server socket: ' . $errstr, $errno);
             }
@@ -68,18 +68,18 @@ class Factory
 
     protected function resolveAddress($address)
     {
-        if (strpos($address, '://') === false) {
+        if (\strpos($address, '://') === false) {
             $address = 'udp://' . $address;
         }
 
         // parse_url() does not accept null ports (random port assignment) => manually remove
         $nullport = false;
-        if (substr($address, -2) === ':0') {
-            $address = substr($address, 0, -2);
+        if (\substr($address, -2) === ':0') {
+            $address = \substr($address, 0, -2);
             $nullport = true;
         }
 
-        $parts = parse_url($address);
+        $parts = \parse_url($address);
 
         if (!$parts || !isset($parts['host'])) {
             return Promise\resolve($address);
@@ -90,12 +90,12 @@ class Factory
         }
 
         // remove square brackets for IPv6 addresses
-        $host = trim($parts['host'], '[]');
+        $host = \trim($parts['host'], '[]');
 
         return $this->resolveHost($host)->then(function ($host) use ($parts) {
             $address = $parts['scheme'] . '://';
 
-            if (isset($parts['port']) && strpos($host, ':') !== false) {
+            if (isset($parts['port']) && \strpos($host, ':') !== false) {
                 // enclose IPv6 address in square brackets if a port will be appended
                 $host = '[' . $host . ']';
             }
@@ -113,7 +113,7 @@ class Factory
     protected function resolveHost($host)
     {
         // there's no need to resolve if the host is already given as an IP address
-        if (false !== filter_var($host, FILTER_VALIDATE_IP)) {
+        if (false !== \filter_var($host, \FILTER_VALIDATE_IP)) {
             return Promise\resolve($host);
         }
 
