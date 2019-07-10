@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.5.0 (2019-07-10)
+
+*   Feature: Forward compatibility with upcoming stable DNS component.
+    (#29 by @clue)
+
+*   Prefix all global functions calls with \ to skip the look up and resolve process and go straight to the global function.
+    (#28 by @WyriHaximus)
+
+*   Improve test suite to also test against PHP 7.1 and 7.2.
+    (#25 by @andreybolonin)
+
 ## 1.4.0 (2018-02-28)
 
 *   Feature: Update DNS dependency to support loading system default DNS
