@@ -1,5 +1,7 @@
 <?php
 
+namespace React\Tests\Datagram;
+
 use React\Datagram\Socket;
 use React\Datagram\Factory;
 use Clue\React\Block;
@@ -13,7 +15,7 @@ class FactoryTest extends TestCase
 
     public function setUp()
     {
-        $this->loop = React\EventLoop\Factory::create();
+        $this->loop = \React\EventLoop\Factory::create();
         $this->resolver = $this->createResolverMock();
         $this->factory = new Factory($this->loop, $this->resolver);
     }

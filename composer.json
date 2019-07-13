@@ -11,7 +11,14 @@
         }
     ],
     "autoload": {
-        "psr-4": {"React\\Datagram\\": "src"}
+        "psr-4": {
+            "React\\Datagram\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "React\\Tests\\Datagram\\": "tests"
+        }
     },
     "require": {
         "php": ">=5.3",

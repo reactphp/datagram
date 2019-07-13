@@ -1,8 +1,8 @@
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
+namespace React\Tests\Datagram;
 
-abstract class TestCase extends PHPUnit_Framework_TestCase
+abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
     protected function expectCallableOnce()
     {
@@ -26,18 +26,11 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
 
     protected function createCallableMock()
     {
-        return $this->getMockBuilder('CallableStub')->getMock();
+        return $this->getMockBuilder('stdClass')->setMethods(array('__invoke'))->getMock();
     }
 
     protected function createResolverMock()
     {
         return $this->getMockBuilder('React\Dns\Resolver\ResolverInterface')->getMock();
-    }
-}
-
-class CallableStub
-{
-    public function __invoke()
-    {
     }
 }
