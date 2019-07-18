@@ -5,6 +5,7 @@ use Clue\React\Block;
 
 class SocketTest extends TestCase
 {
+    private $loop;
     private $factory;
 
     public function setUp()

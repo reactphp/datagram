@@ -31,9 +31,7 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
 
     protected function createResolverMock()
     {
-        return $this->getMockBuilder('React\Dns\Resolver\Resolver')
-            ->disableOriginalConstructor()
-            ->getMock();
+        return $this->getMockBuilder('React\Dns\Resolver\ResolverInterface')->getMock();
     }
 }
 
