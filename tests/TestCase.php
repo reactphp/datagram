@@ -2,7 +2,9 @@
 
 namespace React\Tests\Datagram;
 
-abstract class TestCase extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase as BaseTestCase;
+
+abstract class TestCase extends BaseTestCase
 {
     protected function expectCallableOnce()
     {

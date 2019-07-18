@@ -16,6 +16,9 @@ class SocketTest extends TestCase
         $this->factory = new \React\Datagram\Factory($this->loop, $this->createResolverMock());
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testCreateClientCloseWillNotBlock()
     {
         $promise = $this->factory->createClient('127.0.0.1:12345');
@@ -30,7 +33,7 @@ class SocketTest extends TestCase
     }
 
     /**
-     *
+     * @doesNotPerformAssertions
      * @param Socket $client
      * @depends testCreateClientCloseWillNotBlock
      */
@@ -40,6 +43,9 @@ class SocketTest extends TestCase
         $this->loop->run();
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testCreateClientEndWillNotBlock()
     {
         $promise = $this->factory->createClient('127.0.0.1:12345');
@@ -54,7 +60,7 @@ class SocketTest extends TestCase
     }
 
     /**
-     *
+     * @doesNotPerformAssertions
      * @param Socket $client
      * @depends testCreateClientEndWillNotBlock
      */
@@ -67,7 +73,7 @@ class SocketTest extends TestCase
     }
 
     /**
-     *
+     * @doesNotPerformAssertions
      * @param Socket $client
      * @depends testClientEndAgainWillNotBlock
      */
