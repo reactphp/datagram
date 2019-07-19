@@ -1,5 +1,7 @@
 <?php
 
+namespace React\Tests\Datagram;
+
 use React\Datagram\Socket;
 use Clue\React\Block;
 
@@ -10,10 +12,13 @@ class SocketTest extends TestCase
 
     public function setUp()
     {
-        $this->loop = React\EventLoop\Factory::create();
-        $this->factory = new React\Datagram\Factory($this->loop, $this->createResolverMock());
+        $this->loop = \React\EventLoop\Factory::create();
+        $this->factory = new \React\Datagram\Factory($this->loop, $this->createResolverMock());
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testCreateClientCloseWillNotBlock()
     {
         $promise = $this->factory->createClient('127.0.0.1:12345');
@@ -28,7 +33,7 @@ class SocketTest extends TestCase
     }
 
     /**
-     *
+     * @doesNotPerformAssertions
      * @param Socket $client
      * @depends testCreateClientCloseWillNotBlock
      */
@@ -38,6 +43,9 @@ class SocketTest extends TestCase
         $this->loop->run();
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testCreateClientEndWillNotBlock()
     {
         $promise = $this->factory->createClient('127.0.0.1:12345');
@@ -52,7 +60,7 @@ class SocketTest extends TestCase
     }
 
     /**
-     *
+     * @doesNotPerformAssertions
      * @param Socket $client
      * @depends testCreateClientEndWillNotBlock
      */
@@ -65,7 +73,7 @@ class SocketTest extends TestCase
     }
 
     /**
-     *
+     * @doesNotPerformAssertions
      * @param Socket $client
      * @depends testClientEndAgainWillNotBlock
      */

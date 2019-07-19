@@ -11,7 +11,14 @@
         }
     ],
     "autoload": {
-        "psr-4": {"React\\Datagram\\": "src"}
+        "psr-4": {
+            "React\\Datagram\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "React\\Tests\\Datagram\\": "tests"
+        }
     },
     "require": {
         "php": ">=5.3",
@@ -22,6 +29,6 @@
     },
     "require-dev": {
         "clue/block-react": "~1.0",
-        "phpunit/phpunit": "^5.0 || ^4.8"
+        "phpunit/phpunit": "^7.0 || ^6.0 || ^5.0 || ^4.8.35"
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+namespace React\Tests\Datagram;
+
 use React\Datagram\Socket;
 use React\Datagram\Factory;
 use Clue\React\Block;
@@ -13,7 +15,7 @@ class FactoryTest extends TestCase
 
     public function setUp()
     {
-        $this->loop = React\EventLoop\Factory::create();
+        $this->loop = \React\EventLoop\Factory::create();
         $this->resolver = $this->createResolverMock();
         $this->factory = new Factory($this->loop, $this->resolver);
     }
@@ -62,6 +64,8 @@ class FactoryTest extends TestCase
         $promise = $this->factory->createClient('localhost:12345');
 
         $capturedClient = Block\await($promise, $this->loop);
+        $this->assertInstanceOf('React\Datagram\SocketInterface', $capturedClient);
+
         $capturedClient->close();
     }
 
@@ -129,11 +133,13 @@ class FactoryTest extends TestCase
         $client->close();
     }
 
+    /**
+     * @expectedException RuntimeException
+     */
     public function testCreateClientWithHostnameWillRejectIfResolverRejects()
     {
         $this->resolver->expects($this->once())->method('resolve')->with('example.com')->willReturn(Promise\reject(new \RuntimeException('test')));
 
-        $this->setExpectedException('RuntimeException');
         Block\await($this->factory->createClient('example.com:0'), $this->loop);
     }
 
@@ -155,6 +161,9 @@ class FactoryTest extends TestCase
         Block\await($this->factory->createServer('/////'), $this->loop);
     }
 
+    /**
+     * @expectedException RuntimeException
+     */
     public function testCancelCreateClientWithCancellableHostnameResolver()
     {
         $promise = new Promise\Promise(function () { }, $this->expectCallableOnce());
@@ -163,10 +172,12 @@ class FactoryTest extends TestCase
         $promise = $this->factory->createClient('example.com:0');
         $promise->cancel();
 
-        $this->setExpectedException('RuntimeException');
         Block\await($promise, $this->loop);
     }
 
+    /**
+     * @expectedException RuntimeException
+     */
     public function testCancelCreateClientWithUncancellableHostnameResolver()
     {
         $promise = $this->getMockBuilder('React\Promise\PromiseInterface')->getMock();
@@ -175,7 +186,6 @@ class FactoryTest extends TestCase
         $promise = $this->factory->createClient('example.com:0');
         $promise->cancel();
 
-        $this->setExpectedException('RuntimeException');
         Block\await($promise, $this->loop);
     }
 }
