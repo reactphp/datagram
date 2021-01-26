@@ -13,7 +13,10 @@ class FactoryTest extends TestCase
     private $resolver;
     private $factory;
 
-    public function setUp()
+    /**
+     * @before
+     */
+    public function setUpFactory()
     {
         $this->loop = \React\EventLoop\Factory::create();
         $this->resolver = $this->createResolverMock();
@@ -31,7 +34,7 @@ class FactoryTest extends TestCase
 
         $this->assertEquals('127.0.0.1:12345', $capturedClient->getRemoteAddress());
 
-        $this->assertContains('127.0.0.1:', $capturedClient->getLocalAddress());
+        $this->assertContainsString('127.0.0.1:', $capturedClient->getLocalAddress());
         $this->assertNotEquals('127.0.0.1:12345', $capturedClient->getLocalAddress());
 
         $capturedClient->close();
@@ -50,7 +53,7 @@ class FactoryTest extends TestCase
 
         $this->assertEquals('127.0.0.1:12345', $capturedClient->getRemoteAddress());
 
-        $this->assertContains('127.0.0.1:', $capturedClient->getLocalAddress());
+        $this->assertContainsString('127.0.0.1:', $capturedClient->getLocalAddress());
         $this->assertNotEquals('127.0.0.1:12345', $capturedClient->getLocalAddress());
 
         $capturedClient->close();
@@ -83,7 +86,7 @@ class FactoryTest extends TestCase
 
         $this->assertEquals('[::1]:12345', $capturedClient->getRemoteAddress());
 
-        $this->assertContains('[::1]:', $capturedClient->getLocalAddress());
+        $this->assertContainsString('[::1]:', $capturedClient->getLocalAddress());
         $this->assertNotEquals('[::1]:12345', $capturedClient->getLocalAddress());
 
         $capturedClient->close();
@@ -133,37 +136,26 @@ class FactoryTest extends TestCase
         $client->close();
     }
 
-    /**
-     * @expectedException RuntimeException
-     */
     public function testCreateClientWithHostnameWillRejectIfResolverRejects()
     {
         $this->resolver->expects($this->once())->method('resolve')->with('example.com')->willReturn(Promise\reject(new \RuntimeException('test')));
 
+        $this->setExpectedException('RuntimeException');
         Block\await($this->factory->createClient('example.com:0'), $this->loop);
     }
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Unable to create client socket
-     */
     public function testCreateClientWithInvalidHostnameWillReject()
     {
+        $this->setExpectedException('Exception', 'Unable to create client socket');
         Block\await($this->factory->createClient('/////'), $this->loop);
     }
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Unable to create server socket
-     */
     public function testCreateServerWithInvalidHostnameWillReject()
     {
+        $this->setExpectedException('Exception', 'Unable to create server socket');
         Block\await($this->factory->createServer('/////'), $this->loop);
     }
 
-    /**
-     * @expectedException RuntimeException
-     */
     public function testCancelCreateClientWithCancellableHostnameResolver()
     {
         $promise = new Promise\Promise(function () { }, $this->expectCallableOnce());
@@ -172,12 +164,10 @@ class FactoryTest extends TestCase
         $promise = $this->factory->createClient('example.com:0');
         $promise->cancel();
 
+        $this->setExpectedException('RuntimeException');
         Block\await($promise, $this->loop);
     }
 
-    /**
-     * @expectedException RuntimeException
-     */
     public function testCancelCreateClientWithUncancellableHostnameResolver()
     {
         $promise = $this->getMockBuilder('React\Promise\PromiseInterface')->getMock();
@@ -186,6 +176,7 @@ class FactoryTest extends TestCase
         $promise = $this->factory->createClient('example.com:0');
         $promise->cancel();
 
+        $this->setExpectedException('RuntimeException');
         Block\await($promise, $this->loop);
     }
 }

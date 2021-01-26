@@ -10,7 +10,10 @@ class SocketTest extends TestCase
     private $loop;
     private $factory;
 
-    public function setUp()
+    /**
+     * @before
+     */
+    public function setUpFactory()
     {
         $this->loop = \React\EventLoop\Factory::create();
         $this->factory = new \React\Datagram\Factory($this->loop, $this->createResolverMock());
