@@ -1,6 +1,6 @@
 # Datagram
 
-[![Build Status](https://travis-ci.org/reactphp/datagram.svg?branch=master)](https://travis-ci.org/reactphp/datagram)
+[![CI status](https://github.com/reactphp/datagram/workflows/CI/badge.svg)](https://github.com/reactphp/datagram/actions)
 
 Event-driven UDP datagram socket client and server for [ReactPHP](https://reactphp.org).
 

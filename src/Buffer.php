@@ -79,10 +79,6 @@ class Buffer extends EventEmitter
 
     public function end()
     {
-        if ($this->writable === false) {
-            return;
-        }
-
         $this->writable = false;
 
         if (!$this->outgoing) {
