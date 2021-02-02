@@ -36,11 +36,19 @@ class Socket extends EventEmitter implements SocketInterface
 
     public function getLocalAddress()
     {
+        if ($this->socket === false) {
+            return null;
+        }
+
         return $this->sanitizeAddress(@\stream_socket_get_name($this->socket, false));
     }
 
     public function getRemoteAddress()
     {
+        if ($this->socket === false) {
+            return null;
+        }
+
         return $this->sanitizeAddress(@\stream_socket_get_name($this->socket, true));
     }
 
