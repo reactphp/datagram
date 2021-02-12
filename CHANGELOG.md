@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.6.0 (2021-02-12)
+
+*   Feature: Support PHP 8 (socket address of closed socket should be null).
+    (#39 by @clue)
+
+*   Improve test suite and add `.gitattributes` to exclude dev files from exports.
+    Run tests on PHPUnit 9, switch to GitHub actions and clean up test suite.
+    (#30, #31 and #38 by @clue, #34 by @reedy, #35 by @WyriHaximus and #37 by @SimonFrings)
+
 ## 1.5.0 (2019-07-10)
 
 *   Feature: Forward compatibility with upcoming stable DNS component.
