@@ -40,7 +40,7 @@
         "php": ">=5.3",
         "evenement/evenement": "^3.0 || ^2.0 || ^1.0",
         "react/event-loop": "^1.0 || ^0.5 || ^0.4 || ^0.3",
-        "react/dns": "dev-master#ae37876 as 1.7.0",
+        "react/dns": "^1.7",
         "react/promise": "~2.1|~1.2"
     },
     "require-dev": {
