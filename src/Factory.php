@@ -28,10 +28,12 @@ class Factory
         if ($resolver === null) {
             // try to load nameservers from system config or default to Google's public DNS
             $config = DnsConfig::loadSystemConfigBlocking();
-            $server = $config->nameservers ? \reset($config->nameservers) : '8.8.8.8';
+            if (!$config->nameservers) {
+                $config->nameservers[] = '8.8.8.8'; // @codeCoverageIgnore
+            }
 
             $factory = new DnsFactory();
-            $resolver = $factory->create($server, $loop);
+            $resolver = $factory->create($config, $loop);
         }
 
         $this->loop = $loop;
