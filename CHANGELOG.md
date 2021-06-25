@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.7.0 (2021-06-25)
+
+*   Feature: Support falling back to multiple DNS servers from DNS config.
+    (#41 by @clue)
+
+    When using the `Factory`, it will now use all DNS servers configured on your
+    system. If you have multiple DNS servers configured and connectivity to the
+    primary DNS server is broken, it will now fall back to your other DNS
+    servers, thus providing improved connectivity and redundancy for broken DNS
+    configurations.
+
 ## 1.6.0 (2021-02-12)
 
 *   Feature: Support PHP 8 (socket address of closed socket should be null).
