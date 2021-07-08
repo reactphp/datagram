@@ -39,7 +39,7 @@
     "require": {
         "php": ">=5.3",
         "evenement/evenement": "^3.0 || ^2.0 || ^1.0",
-        "react/event-loop": "dev-master#78f7f43 as 1.2.0",
+        "react/event-loop": "^1.2",
         "react/dns": "^1.7",
         "react/promise": "~2.1|~1.2"
     },
