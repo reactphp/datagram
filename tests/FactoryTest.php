@@ -2,9 +2,9 @@
 
 namespace React\Tests\Datagram;
 
-use React\Datagram\Socket;
-use React\Datagram\Factory;
 use Clue\React\Block;
+use React\Datagram\Factory;
+use React\Datagram\Socket;
 use React\Promise;
 
 class FactoryTest extends TestCase
@@ -21,6 +21,17 @@ class FactoryTest extends TestCase
         $this->loop = \React\EventLoop\Factory::create();
         $this->resolver = $this->createResolverMock();
         $this->factory = new Factory($this->loop, $this->resolver);
+    }
+
+    public function testConstructWithoutLoopAssignsLoopAutomatically()
+    {
+        $factory = new Factory();
+
+        $ref = new \ReflectionProperty($factory, 'loop');
+        $ref->setAccessible(true);
+        $loop = $ref->getValue($factory);
+
+        $this->assertInstanceOf('React\EventLoop\LoopInterface', $loop);
     }
 
     public function testCreateClient()

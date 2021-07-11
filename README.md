@@ -10,8 +10,7 @@ Once [installed](#install), you can use the following code to connect to an UDP 
 `localhost:1234` and send and receive UDP datagrams:  
 
 ```php
-$loop = React\EventLoop\Factory::create();
-$factory = new React\Datagram\Factory($loop);
+$factory = new React\Datagram\Factory();
 
 $factory->createClient('localhost:1234')->then(function (React\Datagram\Socket $client) {
     $client->send('first');
@@ -20,8 +19,6 @@ $factory->createClient('localhost:1234')->then(function (React\Datagram\Socket $
         echo 'received "' . $message . '" from ' . $serverAddress. PHP_EOL;
     });
 });
-
-$loop->run();
 ```
 
 See also the [examples](examples).

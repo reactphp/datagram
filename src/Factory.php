@@ -6,6 +6,7 @@ use React\Datagram\Socket;
 use React\Dns\Config\Config as DnsConfig;
 use React\Dns\Resolver\Factory as DnsFactory;
 use React\Dns\Resolver\ResolverInterface;
+use React\EventLoop\Loop;
 use React\EventLoop\LoopInterface;
 use React\Promise;
 use React\Promise\CancellablePromiseInterface;
@@ -18,13 +19,20 @@ class Factory
 
     /**
      *
-     * @param LoopInterface $loop
+     * This class takes an optional `LoopInterface|null $loop` parameter that can be used to
+     * pass the event loop instance to use for this object. You can use a `null` value
+     * here in order to use the [default loop](https://github.com/reactphp/event-loop#loop).
+     * This value SHOULD NOT be given unless you're sure you want to explicitly use a
+     * given event loop instance.
+     *
+     * @param ?LoopInterface $loop
      * @param ?ResolverInterface $resolver Resolver instance to use. Will otherwise
      *     try to load the system default DNS config or fall back to using
      *     Google's public DNS 8.8.8.8
      */
-    public function __construct(LoopInterface $loop, ResolverInterface $resolver = null)
+    public function __construct(LoopInterface $loop = null, ResolverInterface $resolver = null)
     {
+        $loop = $loop ?: Loop::get();
         if ($resolver === null) {
             // try to load nameservers from system config or default to Google's public DNS
             $config = DnsConfig::loadSystemConfigBlocking();
