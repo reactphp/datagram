@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.8.0 (2021-07-11)
+
+A major new feature release, see [**release announcement**](https://clue.engineering/2021/announcing-reactphp-default-loop).
+
+*   Feature: Simplify usage by supporting new [default loop](https://reactphp.org/event-loop/#loop).
+    (#42 by @clue)
+
+    ```php
+    // old (still supported)
+    $factory = new React\Datagram\Factory($loop);
+
+    // new (using default loop)
+    $factory = new React\Datagram\Factory();
+    ```
+
 ## 1.7.0 (2021-06-25)
 
 *   Feature: Support falling back to multiple DNS servers from DNS config.
