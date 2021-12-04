@@ -123,7 +123,7 @@ class Factory
     protected function resolveHost($host)
     {
         // there's no need to resolve if the host is already given as an IP address
-        if (false !== \filter_var($host, \FILTER_VALIDATE_IP)) {
+        if (@\inet_pton($host) !== false) {
             return Promise\resolve($host);
         }
 
