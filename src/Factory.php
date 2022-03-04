@@ -98,8 +98,9 @@ class Factory
      * @param $socketOptions
      * @return void
      * @throws Exception
+     * @internal
      */
-    protected function assignSocketOptionsToStream($stream, $socketOptions) {
+    public function assignSocketOptionsToStream($stream, $socketOptions) {
         if(
             $stream &&
             $socketOptions &&
