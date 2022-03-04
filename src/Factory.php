@@ -48,32 +48,73 @@ class Factory
         $this->resolver = $resolver;
     }
 
-    public function createClient($address)
+    public function createClient($address, array $socketOptions = array())
     {
         $loop = $this->loop;
+        $that = $this;
 
-        return $this->resolveAddress($address)->then(function ($address) use ($loop) {
+        return $this->resolveAddress($address)->then(function ($address) use ($loop, $socketOptions, $that) {
             $socket = @\stream_socket_client($address, $errno, $errstr);
             if (!$socket) {
                 throw new Exception('Unable to create client socket: ' . $errstr, $errno);
             }
+            $that->assignSocketOptionsToStream($socket, $socketOptions);
 
             return new Socket($loop, $socket);
         });
     }
 
-    public function createServer($address)
+    public function createServer($address, array $socketOptions = array())
     {
         $loop = $this->loop;
+        $that = $this;
 
-        return $this->resolveAddress($address)->then(function ($address) use ($loop) {
+        return $this->resolveAddress($address)->then(function ($address) use ($loop, $socketOptions, $that) {
             $socket = @\stream_socket_server($address, $errno, $errstr, \STREAM_SERVER_BIND);
             if (!$socket) {
                 throw new Exception('Unable to create server socket: ' . $errstr, $errno);
             }
+            $that->assignSocketOptionsToStream($socket, $socketOptions);
 
             return new Socket($loop, $socket);
         });
+    }
+
+    /**
+     * Allows to set custom socket options on a stream resource. This is useful for
+     * setting options like `SO_REUSEADDR` or `SO_BROADCAST`. This method will
+     * throw an exception if the stream resource is not a socket resource.
+     * Example:
+     * ```php
+     * $factory->assignSocketOptionsToStream($socket, array(
+     *   SOL_SOCKET => array( // SOL_SOCKET is the level
+     *     SO_REUSEADDR => 1,
+     *     SO_BROADCAST' => 1,
+     *     SO_BINDTODEVICE => 'eth0',
+     *  ),
+     * ));
+     * ```
+     * @param $stream
+     * @param $socketOptions
+     * @return void
+     * @throws Exception
+     */
+    protected function assignSocketOptionsToStream($stream, $socketOptions) {
+        if(
+            $stream &&
+            $socketOptions &&
+            function_exists('socket_import_stream') &&
+            function_exists('socket_set_option'))
+        {
+            $socket = @socket_import_stream($stream);
+            foreach($socketOptions as $level => $options) {
+                foreach($options as $option => $value) {
+                    if(!socket_set_option($socket, $level, $option, $value)) {
+                        throw new Exception('Unable to set socket option: ' . socket_strerror(socket_last_error($socket)));
+                    }
+                }
+            }
+        }
     }
 
     protected function resolveAddress($address)
