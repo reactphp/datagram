@@ -101,11 +101,16 @@ class Factory
      * @internal
      */
     public function assignSocketOptionsToStream($stream, $socketOptions) {
-        if(
+        if (
             $stream &&
             $socketOptions &&
-            function_exists('socket_import_stream') &&
-            function_exists('socket_set_option'))
+            (
+                (
+                    function_exists('socket_import_stream') &&
+                    function_exists('socket_set_option')
+                ) || (trigger_error('This feature needs to be installed the ext-socket PHP Packed!', E_USER_WARNING) && false)
+            )
+        )
         {
             $socket = @socket_import_stream($stream);
             foreach($socketOptions as $level => $options) {
