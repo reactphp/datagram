@@ -86,7 +86,7 @@ class SocketTest extends TestCase
         $this->loop->run();
     }
 
-    public function testClientSendHugeWillFail()
+    public function testClientSendHugeWillFailWithoutCallingCustomErrorHandler()
     {
         $promise = $this->factory->createClient('127.0.0.1:12345');
         $client = Block\await($promise, $this->loop);
@@ -95,7 +95,15 @@ class SocketTest extends TestCase
         $client->on('error', $this->expectCallableOnce());
         $client->end();
 
+        $error = null;
+        set_error_handler(function ($_, $errstr) use (&$error) {
+            $error = $errstr;
+        });
+
         $this->loop->run();
+
+        restore_error_handler();
+        $this->assertNull($error);
     }
 
     public function testClientSendNoServerWillFail()
