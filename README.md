@@ -1,6 +1,6 @@
 # Datagram
 
-[![CI status](https://github.com/reactphp/datagram/workflows/CI/badge.svg)](https://github.com/reactphp/datagram/actions)
+[![CI status](https://github.com/reactphp/datagram/actions/workflows/ci.yml/badge.svg)](https://github.com/reactphp/datagram/actions)
 [![installs on Packagist](https://img.shields.io/packagist/dt/react/datagram?color=blue&label=installs%20on%20Packagist)](https://packagist.org/packages/react/datagram)
 
 Event-driven UDP datagram socket client and server for [ReactPHP](https://reactphp.org).
