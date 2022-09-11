@@ -9,7 +9,6 @@ use React\Dns\Resolver\ResolverInterface;
 use React\EventLoop\Loop;
 use React\EventLoop\LoopInterface;
 use React\Promise;
-use React\Promise\CancellablePromiseInterface;
 use \Exception;
 
 class Factory
@@ -140,7 +139,7 @@ class Factory
                 $reject(new \RuntimeException('Cancelled creating socket during DNS lookup'));
 
                 // (try to) cancel pending DNS lookup, otherwise ignoring its results
-                if ($promise instanceof CancellablePromiseInterface) {
+                if (\method_exists($promise, 'cancel')) {
                     $promise->cancel();
                 }
             }
