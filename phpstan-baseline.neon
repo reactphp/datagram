@@ -1,0 +1,596 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method React\\\\Datagram\\\\Buffer\\:\\:__construct\\(\\) has parameter \\$socket with no type specified\\.$#"
+			count: 1
+			path: src/Buffer.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Buffer\\:\\:close\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Buffer.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Buffer\\:\\:end\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Buffer.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Buffer\\:\\:handlePause\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Buffer.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Buffer\\:\\:handleResume\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Buffer.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Buffer\\:\\:handleWrite\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Buffer.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Buffer\\:\\:handleWrite\\(\\) has parameter \\$data with no type specified\\.$#"
+			count: 1
+			path: src/Buffer.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Buffer\\:\\:handleWrite\\(\\) has parameter \\$remoteAddress with no type specified\\.$#"
+			count: 1
+			path: src/Buffer.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Buffer\\:\\:onWritable\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Buffer.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Buffer\\:\\:send\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Buffer.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Buffer\\:\\:send\\(\\) has parameter \\$data with no type specified\\.$#"
+			count: 1
+			path: src/Buffer.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Buffer\\:\\:send\\(\\) has parameter \\$remoteAddress with no type specified\\.$#"
+			count: 1
+			path: src/Buffer.php
+
+		-
+			message: "#^Parameter \\#1 \\$callback of function set_error_handler expects \\(callable\\(int, string, string, int\\)\\: bool\\)\\|null, Closure\\(mixed, mixed\\)\\: void given\\.$#"
+			count: 1
+			path: src/Buffer.php
+
+		-
+			message: "#^Property React\\\\Datagram\\\\Buffer\\:\\:\\$listening has no type specified\\.$#"
+			count: 1
+			path: src/Buffer.php
+
+		-
+			message: "#^Property React\\\\Datagram\\\\Buffer\\:\\:\\$loop has no type specified\\.$#"
+			count: 1
+			path: src/Buffer.php
+
+		-
+			message: "#^Property React\\\\Datagram\\\\Buffer\\:\\:\\$outgoing has no type specified\\.$#"
+			count: 1
+			path: src/Buffer.php
+
+		-
+			message: "#^Property React\\\\Datagram\\\\Buffer\\:\\:\\$socket has no type specified\\.$#"
+			count: 1
+			path: src/Buffer.php
+
+		-
+			message: "#^Property React\\\\Datagram\\\\Buffer\\:\\:\\$writable has no type specified\\.$#"
+			count: 1
+			path: src/Buffer.php
+
+		-
+			message: "#^Cannot access an offset on array\\|float\\|int\\|string\\|false\\|null\\.$#"
+			count: 1
+			path: src/Factory.php
+
+		-
+			message: "#^Cannot call method cancel\\(\\) on class\\-string\\|object\\.$#"
+			count: 1
+			path: src/Factory.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Factory\\:\\:createClient\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Factory.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Factory\\:\\:createClient\\(\\) has parameter \\$address with no type specified\\.$#"
+			count: 1
+			path: src/Factory.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Factory\\:\\:createServer\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Factory.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Factory\\:\\:createServer\\(\\) has parameter \\$address with no type specified\\.$#"
+			count: 1
+			path: src/Factory.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Factory\\:\\:resolveAddress\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Factory.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Factory\\:\\:resolveAddress\\(\\) has parameter \\$address with no type specified\\.$#"
+			count: 1
+			path: src/Factory.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Factory\\:\\:resolveHost\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Factory.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Factory\\:\\:resolveHost\\(\\) has parameter \\$host with no type specified\\.$#"
+			count: 1
+			path: src/Factory.php
+
+		-
+			message: "#^Offset 'scheme' does not exist on array\\{scheme\\?\\: string, host\\: string, port\\?\\: int\\<0, 65535\\>, user\\?\\: string, pass\\?\\: string, path\\?\\: string, query\\?\\: string, fragment\\?\\: string\\}\\.$#"
+			count: 1
+			path: src/Factory.php
+
+		-
+			message: "#^Property React\\\\Datagram\\\\Factory\\:\\:\\$loop has no type specified\\.$#"
+			count: 1
+			path: src/Factory.php
+
+		-
+			message: "#^Property React\\\\Datagram\\\\Factory\\:\\:\\$resolver has no type specified\\.$#"
+			count: 1
+			path: src/Factory.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Socket\\:\\:__construct\\(\\) has parameter \\$socket with no type specified\\.$#"
+			count: 1
+			path: src/Socket.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Socket\\:\\:close\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Socket.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Socket\\:\\:end\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Socket.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Socket\\:\\:getLocalAddress\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Socket.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Socket\\:\\:getRemoteAddress\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Socket.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Socket\\:\\:handleClose\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Socket.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Socket\\:\\:handleReceive\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Socket.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Socket\\:\\:handleReceive\\(\\) has parameter \\$peerAddress with no type specified\\.$#"
+			count: 1
+			path: src/Socket.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Socket\\:\\:onReceive\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Socket.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Socket\\:\\:pause\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Socket.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Socket\\:\\:resume\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Socket.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Socket\\:\\:sanitizeAddress\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Socket.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Socket\\:\\:sanitizeAddress\\(\\) has parameter \\$address with no type specified\\.$#"
+			count: 1
+			path: src/Socket.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Socket\\:\\:send\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Socket.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Socket\\:\\:send\\(\\) has parameter \\$data with no type specified\\.$#"
+			count: 1
+			path: src/Socket.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\Socket\\:\\:send\\(\\) has parameter \\$remoteAddress with no type specified\\.$#"
+			count: 1
+			path: src/Socket.php
+
+		-
+			message: "#^Property React\\\\Datagram\\\\Socket\\:\\:\\$buffer has no type specified\\.$#"
+			count: 1
+			path: src/Socket.php
+
+		-
+			message: "#^Property React\\\\Datagram\\\\Socket\\:\\:\\$bufferSize has no type specified\\.$#"
+			count: 1
+			path: src/Socket.php
+
+		-
+			message: "#^Property React\\\\Datagram\\\\Socket\\:\\:\\$loop has no type specified\\.$#"
+			count: 1
+			path: src/Socket.php
+
+		-
+			message: "#^Property React\\\\Datagram\\\\Socket\\:\\:\\$socket has no type specified\\.$#"
+			count: 1
+			path: src/Socket.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\SocketInterface\\:\\:close\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/SocketInterface.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\SocketInterface\\:\\:end\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/SocketInterface.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\SocketInterface\\:\\:getLocalAddress\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/SocketInterface.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\SocketInterface\\:\\:getRemoteAddress\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/SocketInterface.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\SocketInterface\\:\\:pause\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/SocketInterface.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\SocketInterface\\:\\:resume\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/SocketInterface.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\SocketInterface\\:\\:send\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/SocketInterface.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\SocketInterface\\:\\:send\\(\\) has parameter \\$data with no type specified\\.$#"
+			count: 1
+			path: src/SocketInterface.php
+
+		-
+			message: "#^Method React\\\\Datagram\\\\SocketInterface\\:\\:send\\(\\) has parameter \\$remoteAddress with no type specified\\.$#"
+			count: 1
+			path: src/SocketInterface.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\BufferTest\\:\\:testCloseAfterSendAddsSocketToLoopRemovesSocketFromLoopAgain\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/BufferTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\BufferTest\\:\\:testCloseTwiceEmitsCloseEventOnce\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/BufferTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\BufferTest\\:\\:testSendAddsSocketToLoop\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/BufferTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\BufferTest\\:\\:testSendAfterCloseIsNoop\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/BufferTest.php
+
+		-
+			message: "#^Cannot call method close\\(\\) on mixed\\.$#"
+			count: 8
+			path: tests/FactoryTest.php
+
+		-
+			message: "#^Cannot call method getLocalAddress\\(\\) on mixed\\.$#"
+			count: 9
+			path: tests/FactoryTest.php
+
+		-
+			message: "#^Cannot call method getRemoteAddress\\(\\) on mixed\\.$#"
+			count: 6
+			path: tests/FactoryTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\FactoryTest\\:\\:setUpFactory\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/FactoryTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\FactoryTest\\:\\:testCancelCreateClientWithCancellableHostnameResolver\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/FactoryTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\FactoryTest\\:\\:testCancelCreateClientWithUncancellableHostnameResolver\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/FactoryTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\FactoryTest\\:\\:testConstructWithoutLoopAssignsLoopAutomatically\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/FactoryTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\FactoryTest\\:\\:testCreateClient\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/FactoryTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\FactoryTest\\:\\:testCreateClientIpv6\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/FactoryTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\FactoryTest\\:\\:testCreateClientLocalhost\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/FactoryTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\FactoryTest\\:\\:testCreateClientLocalhostWithDefaultResolver\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/FactoryTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\FactoryTest\\:\\:testCreateClientWithHostnameWillRejectIfResolverRejects\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/FactoryTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\FactoryTest\\:\\:testCreateClientWithHostnameWillUseResolver\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/FactoryTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\FactoryTest\\:\\:testCreateClientWithInvalidHostnameWillReject\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/FactoryTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\FactoryTest\\:\\:testCreateClientWithIpWillNotUseResolver\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/FactoryTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\FactoryTest\\:\\:testCreateServer\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/FactoryTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\FactoryTest\\:\\:testCreateServerRandomPort\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/FactoryTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\FactoryTest\\:\\:testCreateServerWithInvalidHostnameWillReject\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/FactoryTest.php
+
+		-
+			message: "#^Property React\\\\Tests\\\\Datagram\\\\FactoryTest\\:\\:\\$factory has no type specified\\.$#"
+			count: 1
+			path: tests/FactoryTest.php
+
+		-
+			message: "#^Property React\\\\Tests\\\\Datagram\\\\FactoryTest\\:\\:\\$loop has no type specified\\.$#"
+			count: 1
+			path: tests/FactoryTest.php
+
+		-
+			message: "#^Property React\\\\Tests\\\\Datagram\\\\FactoryTest\\:\\:\\$resolver has no type specified\\.$#"
+			count: 1
+			path: tests/FactoryTest.php
+
+		-
+			message: "#^Anonymous function has an unused use \\$that\\.$#"
+			count: 1
+			path: tests/SocketTest.php
+
+		-
+			message: "#^Cannot call method close\\(\\) on mixed\\.$#"
+			count: 1
+			path: tests/SocketTest.php
+
+		-
+			message: "#^Cannot call method end\\(\\) on mixed\\.$#"
+			count: 2
+			path: tests/SocketTest.php
+
+		-
+			message: "#^Cannot call method getLocalAddress\\(\\) on mixed\\.$#"
+			count: 2
+			path: tests/SocketTest.php
+
+		-
+			message: "#^Cannot call method on\\(\\) on mixed\\.$#"
+			count: 7
+			path: tests/SocketTest.php
+
+		-
+			message: "#^Cannot call method send\\(\\) on mixed\\.$#"
+			count: 6
+			path: tests/SocketTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\SocketTest\\:\\:provideSanitizeAddress\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/SocketTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\SocketTest\\:\\:setUpFactory\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/SocketTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\SocketTest\\:\\:testClientCloseAgainWillNotBlock\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/SocketTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\SocketTest\\:\\:testClientEndAgainWillNotBlock\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/SocketTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\SocketTest\\:\\:testClientSendAfterEndIsNoop\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/SocketTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\SocketTest\\:\\:testClientSendHugeWillFailWithoutCallingCustomErrorHandler\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/SocketTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\SocketTest\\:\\:testClientSendNoServerWillFail\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/SocketTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\SocketTest\\:\\:testCreateClientCloseWillNotBlock\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/SocketTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\SocketTest\\:\\:testCreateClientEndWillNotBlock\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/SocketTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\SocketTest\\:\\:testCreatePair\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/SocketTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\SocketTest\\:\\:testSanitizeAddress\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/SocketTest.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\SocketTest\\:\\:testSanitizeAddress\\(\\) has parameter \\$address with no type specified\\.$#"
+			count: 1
+			path: tests/SocketTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$callback of function set_error_handler expects \\(callable\\(int, string, string, int\\)\\: bool\\)\\|null, Closure\\(mixed, mixed\\)\\: void given\\.$#"
+			count: 1
+			path: tests/SocketTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of function str_repeat expects string, int given\\.$#"
+			count: 1
+			path: tests/SocketTest.php
+
+		-
+			message: "#^Property React\\\\Tests\\\\Datagram\\\\SocketTest\\:\\:\\$factory has no type specified\\.$#"
+			count: 1
+			path: tests/SocketTest.php
+
+		-
+			message: "#^Property React\\\\Tests\\\\Datagram\\\\SocketTest\\:\\:\\$loop has no type specified\\.$#"
+			count: 1
+			path: tests/SocketTest.php
+
+		-
+			message: "#^Call to an undefined static method PHPUnit\\\\Framework\\\\TestCase\\:\\:setExpectedException\\(\\)\\.$#"
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\TestCase\\:\\:assertContainsString\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\TestCase\\:\\:assertContainsString\\(\\) has parameter \\$haystack with no type specified\\.$#"
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\TestCase\\:\\:assertContainsString\\(\\) has parameter \\$needle with no type specified\\.$#"
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\TestCase\\:\\:createCallableMock\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\TestCase\\:\\:createResolverMock\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\TestCase\\:\\:expectCallableNever\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\TestCase\\:\\:expectCallableOnce\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\TestCase\\:\\:setExpectedException\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\TestCase\\:\\:setExpectedException\\(\\) has parameter \\$exception with no type specified\\.$#"
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\TestCase\\:\\:setExpectedException\\(\\) has parameter \\$exceptionCode with no type specified\\.$#"
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: "#^Method React\\\\Tests\\\\Datagram\\\\TestCase\\:\\:setExpectedException\\(\\) has parameter \\$exceptionMessage with no type specified\\.$#"
+			count: 1
+			path: tests/TestCase.php
