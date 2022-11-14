@@ -26,16 +26,6 @@
             "email": "cboden@gmail.com"
         }
     ],
-    "autoload": {
-        "psr-4": {
-            "React\\Datagram\\": "src"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "React\\Tests\\Datagram\\": "tests"
-        }
-    },
     "require": {
         "php": ">=5.3",
         "evenement/evenement": "^3.0 || ^2.0 || ^1.0",
@@ -45,6 +35,16 @@
     },
     "require-dev": {
         "clue/block-react": "~1.0",
-        "phpunit/phpunit": "^9.3 || ^5.7 || ^4.8.35"
+        "phpunit/phpunit": "^9.5 || ^5.7 || ^4.8.35"
+    },
+    "autoload": {
+        "psr-4": {
+            "React\\Datagram\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "React\\Tests\\Datagram\\": "tests/"
+        }
     }
 }
