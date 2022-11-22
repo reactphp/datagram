@@ -34,7 +34,7 @@
         "react/promise": "^3 || ^2.1 || ^1.2"
     },
     "require-dev": {
-        "clue/block-react": "~1.0",
+        "react/async": "^4 || ^3 || ^2",
         "phpunit/phpunit": "^9.5 || ^5.7 || ^4.8.35"
     },
     "autoload": {
