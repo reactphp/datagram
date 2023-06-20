@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.9.0 (2022-12-05)
+
+*   Feature: Add support for PHP 8.1 and PHP 8.2.
+    (#44 by @SimonFrings and #51 by @WyriHaximus)
+
+*   Feature: Forward compatibility with upcoming Promise v3.
+    (#33 by @WyriHaximus)
+
+*   Feature / Fix: Improve error reporting when custom error handler is used.
+    (#49 by @clue)
+
+*   Feature: Avoid dependency on `ext-filter`.
+    (#45 by @clue)
+
+*   Improve documentation and examples and update to use new reactphp/async package.
+    (#50 by @nhedger, #53 by @dinooo13 and #47, #54 and #56 by @SimonFrings)
+
+*   Improve test suite and report failed assertions.
+    (#48 by @SimonFrings and #55 by @clue)
+
 ## 1.8.0 (2021-07-11)
 
 A major new feature release, see [**release announcement**](https://clue.engineering/2021/announcing-reactphp-default-loop).

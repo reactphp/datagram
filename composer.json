@@ -26,25 +26,25 @@
             "email": "cboden@gmail.com"
         }
     ],
-    "autoload": {
-        "psr-4": {
-            "React\\Datagram\\": "src"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "React\\Tests\\Datagram\\": "tests"
-        }
-    },
     "require": {
         "php": ">=5.3",
         "evenement/evenement": "^3.0 || ^2.0 || ^1.0",
         "react/event-loop": "^1.2",
         "react/dns": "^1.7",
-        "react/promise": "~2.1|~1.2"
+        "react/promise": "^3 || ^2.1 || ^1.2"
     },
     "require-dev": {
-        "clue/block-react": "~1.0",
-        "phpunit/phpunit": "^9.3 || ^5.7 || ^4.8.35"
+        "react/async": "^4 || ^3 || ^2",
+        "phpunit/phpunit": "^9.5 || ^5.7 || ^4.8.35"
+    },
+    "autoload": {
+        "psr-4": {
+            "React\\Datagram\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "React\\Tests\\Datagram\\": "tests/"
+        }
     }
 }

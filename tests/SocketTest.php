@@ -3,7 +3,6 @@
 namespace React\Tests\Datagram;
 
 use React\Datagram\Socket;
-use Clue\React\Block;
 
 class SocketTest extends TestCase
 {
@@ -25,7 +24,7 @@ class SocketTest extends TestCase
     public function testCreateClientCloseWillNotBlock()
     {
         $promise = $this->factory->createClient('127.0.0.1:12345');
-        $client = Block\await($promise, $this->loop);
+        $client = \React\Async\await($promise);
 
         $client->send('test');
         $client->close();
@@ -52,7 +51,7 @@ class SocketTest extends TestCase
     public function testCreateClientEndWillNotBlock()
     {
         $promise = $this->factory->createClient('127.0.0.1:12345');
-        $client = Block\await($promise, $this->loop);
+        $client = \React\Async\await($promise);
 
         $client->send('test');
         $client->end();
@@ -86,22 +85,30 @@ class SocketTest extends TestCase
         $this->loop->run();
     }
 
-    public function testClientSendHugeWillFail()
+    public function testClientSendHugeWillFailWithoutCallingCustomErrorHandler()
     {
         $promise = $this->factory->createClient('127.0.0.1:12345');
-        $client = Block\await($promise, $this->loop);
+        $client = \React\Async\await($promise);
 
         $client->send(str_repeat(1, 1024 * 1024));
         $client->on('error', $this->expectCallableOnce());
         $client->end();
 
+        $error = null;
+        set_error_handler(function ($_, $errstr) use (&$error) {
+            $error = $errstr;
+        });
+
         $this->loop->run();
+
+        restore_error_handler();
+        $this->assertNull($error);
     }
 
     public function testClientSendNoServerWillFail()
     {
         $promise = $this->factory->createClient('127.0.0.1:1234');
-        $client = Block\await($promise, $this->loop);
+        $client = \React\Async\await($promise);
 
         // send a message to a socket that is not actually listening
         // expect the remote end to reject this by sending an ICMP message
@@ -127,10 +134,10 @@ class SocketTest extends TestCase
     public function testCreatePair()
     {
         $promise = $this->factory->createServer('127.0.0.1:0');
-        $server = Block\await($promise, $this->loop);
+        $server = \React\Async\await($promise);
 
         $promise = $this->factory->createClient($server->getLocalAddress());
-        $client = Block\await($promise, $this->loop);
+        $client = \React\Async\await($promise);
 
         $that = $this;
         $server->on('message', function ($message, $remote, $server) use ($that) {
@@ -173,7 +180,7 @@ class SocketTest extends TestCase
         $promise = $this->factory->createServer($address);
 
         try {
-            $server = Block\await($promise, $this->loop);
+            $server = \React\Async\await($promise);
         } catch (\Exception $e) {
             if (strpos($address, '[') === false) {
                 throw $e;
@@ -183,7 +190,7 @@ class SocketTest extends TestCase
         }
 
         $promise = $this->factory->createClient($server->getLocalAddress());
-        $client = Block\await($promise, $this->loop);
+        $client = \React\Async\await($promise);
 
         $that = $this;
         $server->on('message', function ($message, $remote, $server) use ($that) {

@@ -1,6 +1,7 @@
 # Datagram
 
-[![CI status](https://github.com/reactphp/datagram/workflows/CI/badge.svg)](https://github.com/reactphp/datagram/actions)
+[![CI status](https://github.com/reactphp/datagram/actions/workflows/ci.yml/badge.svg)](https://github.com/reactphp/datagram/actions)
+[![installs on Packagist](https://img.shields.io/packagist/dt/react/datagram?color=blue&label=installs%20on%20Packagist)](https://packagist.org/packages/react/datagram)
 
 Event-driven UDP datagram socket client and server for [ReactPHP](https://reactphp.org).
 
@@ -37,7 +38,7 @@ This project follows [SemVer](https://semver.org/).
 This will install the latest supported version:
 
 ```bash
-$ composer require react/datagram:^1.8
+composer require react/datagram:^1.9
 ```
 
 See also the [CHANGELOG](CHANGELOG.md) for details about version upgrades.
@@ -53,13 +54,13 @@ To run the test suite, you first need to clone this repo and then install all
 dependencies [through Composer](https://getcomposer.org/):
 
 ```bash
-$ composer install
+composer install
 ```
 
 To run the test suite, go to the project root and run:
 
 ```bash
-$ php vendor/bin/phpunit
+vendor/bin/phpunit
 ```
 
 ## License

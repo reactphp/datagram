@@ -2,7 +2,6 @@
 
 namespace React\Tests\Datagram;
 
-use Clue\React\Block;
 use React\Datagram\Factory;
 use React\Datagram\Socket;
 use React\Promise;
@@ -40,7 +39,7 @@ class FactoryTest extends TestCase
 
         $promise = $this->factory->createClient('127.0.0.1:12345');
 
-        $capturedClient = Block\await($promise, $this->loop);
+        $capturedClient = \React\Async\await($promise);
         $this->assertInstanceOf('React\Datagram\Socket', $capturedClient);
 
         $this->assertEquals('127.0.0.1:12345', $capturedClient->getRemoteAddress());
@@ -59,7 +58,7 @@ class FactoryTest extends TestCase
 
         $promise = $this->factory->createClient('localhost:12345');
 
-        $capturedClient = Block\await($promise, $this->loop);
+        $capturedClient = \React\Async\await($promise);
         $this->assertInstanceOf('React\Datagram\Socket', $capturedClient);
 
         $this->assertEquals('127.0.0.1:12345', $capturedClient->getRemoteAddress());
@@ -77,7 +76,7 @@ class FactoryTest extends TestCase
 
         $promise = $this->factory->createClient('localhost:12345');
 
-        $capturedClient = Block\await($promise, $this->loop);
+        $capturedClient = \React\Async\await($promise);
         $this->assertInstanceOf('React\Datagram\SocketInterface', $capturedClient);
 
         $capturedClient->close();
@@ -88,7 +87,7 @@ class FactoryTest extends TestCase
         $promise = $this->factory->createClient('[::1]:12345');
 
         try {
-            $capturedClient = Block\await($promise, $this->loop);
+            $capturedClient = \React\Async\await($promise);
         } catch (\Exception $e) {
             $this->markTestSkipped('Unable to start IPv6 client socket (IPv6 not supported on this system?)');
         }
@@ -107,7 +106,7 @@ class FactoryTest extends TestCase
     {
         $promise = $this->factory->createServer('127.0.0.1:12345');
 
-        $capturedServer = Block\await($promise, $this->loop);
+        $capturedServer = \React\Async\await($promise);
         $this->assertInstanceOf('React\Datagram\Socket', $capturedServer);
 
         $this->assertEquals('127.0.0.1:12345', $capturedServer->getLocalAddress());
@@ -122,7 +121,7 @@ class FactoryTest extends TestCase
     {
         $promise = $this->factory->createServer('127.0.0.1:0');
 
-        $capturedServer = Block\await($promise, $this->loop);
+        $capturedServer = \React\Async\await($promise);
         $this->assertInstanceOf('React\Datagram\Socket', $capturedServer);
 
         $this->assertNotEquals('127.0.0.1:0', $capturedServer->getLocalAddress());
@@ -135,7 +134,7 @@ class FactoryTest extends TestCase
     {
         $this->resolver->expects($this->never())->method('resolve');
 
-        $client = Block\await($this->factory->createClient('127.0.0.1:0'), $this->loop);
+        $client = \React\Async\await($this->factory->createClient('127.0.0.1:0'));
         $client->close();
     }
 
@@ -143,7 +142,7 @@ class FactoryTest extends TestCase
     {
         $this->resolver->expects($this->once())->method('resolve')->with('example.com')->willReturn(Promise\resolve('127.0.0.1'));
 
-        $client = Block\await($this->factory->createClient('example.com:0'), $this->loop);
+        $client = \React\Async\await($this->factory->createClient('example.com:0'));
         $client->close();
     }
 
@@ -152,19 +151,19 @@ class FactoryTest extends TestCase
         $this->resolver->expects($this->once())->method('resolve')->with('example.com')->willReturn(Promise\reject(new \RuntimeException('test')));
 
         $this->setExpectedException('RuntimeException');
-        Block\await($this->factory->createClient('example.com:0'), $this->loop);
+        \React\Async\await($this->factory->createClient('example.com:0'));
     }
 
     public function testCreateClientWithInvalidHostnameWillReject()
     {
         $this->setExpectedException('Exception', 'Unable to create client socket');
-        Block\await($this->factory->createClient('/////'), $this->loop);
+        \React\Async\await($this->factory->createClient('/////'));
     }
 
     public function testCreateServerWithInvalidHostnameWillReject()
     {
         $this->setExpectedException('Exception', 'Unable to create server socket');
-        Block\await($this->factory->createServer('/////'), $this->loop);
+        \React\Async\await($this->factory->createServer('/////'));
     }
 
     public function testCancelCreateClientWithCancellableHostnameResolver()
@@ -176,7 +175,7 @@ class FactoryTest extends TestCase
         $promise->cancel();
 
         $this->setExpectedException('RuntimeException');
-        Block\await($promise, $this->loop);
+        \React\Async\await($promise);
     }
 
     public function testCancelCreateClientWithUncancellableHostnameResolver()
@@ -188,6 +187,6 @@ class FactoryTest extends TestCase
         $promise->cancel();
 
         $this->setExpectedException('RuntimeException');
-        Block\await($promise, $this->loop);
+        \React\Async\await($promise);
     }
 }
