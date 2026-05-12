@@ -81,7 +81,7 @@ class Socket extends EventEmitter implements SocketInterface
     public function onReceive()
     {
         try {
-            $data = $this->handleReceive($peer);
+            list($data, $peer) = $this->handleReceive();
         }
         catch (Exception $e) {
             // emit error message and local socket
@@ -127,7 +127,7 @@ class Socket extends EventEmitter implements SocketInterface
         return $address;
     }
 
-    protected function handleReceive(&$peerAddress)
+    protected function handleReceive()
     {
         $data = \stream_socket_recvfrom($this->socket, $this->bufferSize, 0, $peerAddress);
 
@@ -141,7 +141,7 @@ class Socket extends EventEmitter implements SocketInterface
 
         $peerAddress = $this->sanitizeAddress($peerAddress);
 
-        return $data;
+        return array($data, $peerAddress);
     }
 
     protected function handleClose()
