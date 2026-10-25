@@ -27,7 +27,9 @@ class FactoryTest extends TestCase
         $factory = new Factory();
 
         $ref = new \ReflectionProperty($factory, 'loop');
-        $ref->setAccessible(true);
+        if (PHP_VERSION_ID < 80100) {
+            $ref->setAccessible(true);
+        }
         $loop = $ref->getValue($factory);
 
         $this->assertInstanceOf('React\EventLoop\LoopInterface', $loop);
